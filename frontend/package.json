@@ -3,6 +3,6 @@
     "start": "vercel dev"
   },
   "dependencies": {
-    "googleapis": "^140.0.0"
+    "googleapis": "^140.0.1"
   }
 }

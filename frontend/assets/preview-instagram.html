@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Preview Logo Instagram — NOCTEA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 3rem; font-family: -apple-system, sans-serif; }
+    h2 { color: #888; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
+    .previews { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; justify-content: center; }
+
+    /* Tamaño real Instagram móvil ~110px */
+    .circle-small { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; border: 2px solid #333; }
+    /* Tamaño escritorio ~150px */
+    .circle-mid { width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 2px solid #333; }
+    /* Preview grande -->
+    .circle-large { width: 320px; height: 320px; border-radius: 50%; overflow: hidden; border: 2px solid #444; }
+
+    img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Simulación ring Instagram -->
+    .ring { padding: 3px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 50%; }
+    .ring .circle-mid { border: 3px solid #1a1a1a; }
+
+    .label { color: #555; font-size: 0.72rem; text-align: center; margin-top: 0.5rem; letter-spacing: 0.05em; }
+
+    .group { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+
+    a.download {
+      margin-top: 2rem;
+      display: inline-block;
+      background: #2F6B3C;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Logo NOCTEA · Preview Instagram</h2>
+
+  <div class="previews">
+
+    <div class="group">
+      <div class="circle-small">
+        <img src="instagram-profile-logo.svg" alt="Logo NOCTEA">
+      </div>
+      <div class="label">Móvil ~110px</div>
+    </div>
+
+    <div class="group">
+      <div class="ring">
+        <div class="circle-mid">
+          <img src="instagram-profile-logo.svg" alt="Logo NOCTEA">
+        </div>
+      </div>
+      <div class="label">Con ring Instagram</div>
+    </div>
+
+    <div class="group">
+      <div class="circle-large">
+        <img src="instagram-profile-logo.svg" alt="Logo NOCTEA">
+      </div>
+      <div class="label">Vista grande</div>
+    </div>
+
+  </div>
+
+  <a href="instagram-profile-logo.svg" download="noctea-instagram-logo.svg" class="download">
+    Descargar SVG
+  </a>
+
+</body>
+</html>

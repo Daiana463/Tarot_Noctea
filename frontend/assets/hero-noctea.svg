@@ -1,0 +1,280 @@
+<svg viewBox="-35 0 670 680" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!-- Circle background: dark mystical -->
+    <radialGradient id="hBg" cx="48%" cy="42%" r="52%">
+      <stop offset="0%"   stop-color="#1e5c38" stop-opacity="0.52"/>
+      <stop offset="40%"  stop-color="#0b2418" stop-opacity="0.86"/>
+      <stop offset="100%" stop-color="#020d07" stop-opacity="0.98"/>
+    </radialGradient>
+    <!-- Leaf gradient deep -->
+    <linearGradient id="hLeaf" x1="0%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%"   stop-color="#2F6B3C"/>
+      <stop offset="100%" stop-color="#0d2d17"/>
+    </linearGradient>
+    <!-- Leaf gradient lighter -->
+    <linearGradient id="hLeaf2" x1="0%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"   stop-color="#3a7e4a"/>
+      <stop offset="100%" stop-color="#163826"/>
+    </linearGradient>
+    <!-- Moon radial -->
+    <radialGradient id="hMoon" cx="36%" cy="34%" r="60%">
+      <stop offset="0%"   stop-color="#C9A85A" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#C9A85A" stop-opacity="0.02"/>
+    </radialGradient>
+    <!-- Card gradient -->
+    <linearGradient id="hCard" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%"   stop-color="#183a26"/>
+      <stop offset="100%" stop-color="#061812"/>
+    </linearGradient>
+    <!-- Ambient green -->
+    <radialGradient id="hAmb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#2F6B3C" stop-opacity="0.18"/>
+      <stop offset="55%"  stop-color="#2F6B3C" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#2F6B3C" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Vignette edge -->
+    <radialGradient id="hVig" cx="50%" cy="50%" r="50%">
+      <stop offset="55%"  stop-color="#061A12" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#061A12" stop-opacity="0.24"/>
+    </radialGradient>
+    <!-- Glow filters -->
+    <filter id="hBlur22" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <filter id="hBlur12" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="hCardFx" x="-15%" y="-8%" width="130%" height="125%">
+      <feDropShadow dx="0" dy="14" stdDeviation="24" flood-color="#000" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+
+  <!-- ═══ ATMOSPHERIC GLOW ═══ -->
+  <ellipse cx="300" cy="340" rx="286" ry="308" fill="url(#hAmb)" filter="url(#hBlur22)"/>
+
+  <!-- ═══ OUTER FAINT RINGS ═══ -->
+  <circle cx="300" cy="340" r="284" fill="none" stroke="#C9A85A" stroke-width="0.4" stroke-dasharray="1 15" opacity="0.09"/>
+  <circle cx="300" cy="340" r="266" fill="none" stroke="#C9A85A" stroke-width="0.3" opacity="0.06"/>
+
+  <!-- ═══ MAIN CIRCLE ═══ -->
+  <circle cx="300" cy="340" r="245" fill="url(#hBg)"/>
+  <!-- Gold border -->
+  <circle cx="300" cy="340" r="245" fill="none" stroke="#C9A85A" stroke-width="1.6" opacity="0.44"/>
+
+  <!-- ═══ INNER ROTATING RINGS ═══ -->
+  <circle cx="300" cy="340" r="227" fill="none" stroke="#C9A85A" stroke-width="0.7" stroke-dasharray="6 11" opacity="0.2">
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 300 340" to="360 300 340" dur="90s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="300" cy="340" r="202" fill="none" stroke="#C9A85A" stroke-width="0.5" stroke-dasharray="2 10" opacity="0.13">
+    <animateTransform attributeName="transform" type="rotate"
+      from="360 300 340" to="0 300 340" dur="64s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Inner fixed ring -->
+  <circle cx="300" cy="340" r="174" fill="none" stroke="#C9A85A" stroke-width="0.35" opacity="0.08"/>
+
+  <!-- ═══ SACRED GEOMETRY ═══ -->
+  <!-- Slow-rotating octagram -->
+  <polygon points="300,110 311,262 445,340 311,418 300,570 289,418 155,340 289,262"
+    fill="none" stroke="#C9A85A" stroke-width="0.55" opacity="0.09">
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 300 340" to="360 300 340" dur="160s" repeatCount="indefinite"/>
+  </polygon>
+  <!-- Cross lines (barely visible) -->
+  <g stroke="#C9A85A" stroke-width="0.35" opacity="0.052">
+    <line x1="300" y1="95"  x2="300" y2="585"/>
+    <line x1="55"  y1="340" x2="545" y2="340"/>
+    <line x1="127" y1="167" x2="473" y2="513"/>
+    <line x1="473" y1="167" x2="127" y2="513"/>
+  </g>
+
+  <!-- ═══ CRESCENT MOON ═══ -->
+  <!-- Soft ambient glow around moon -->
+  <circle cx="300" cy="206" r="78" fill="#C9A85A" opacity="0.032" filter="url(#hBlur22)"/>
+  <!-- Moon full disc -->
+  <circle cx="300" cy="206" r="56" fill="url(#hMoon)" stroke="#C9A85A" stroke-width="1.2" opacity="0.74"/>
+  <!-- Shadow disc → creates crescent -->
+  <circle cx="328" cy="198" r="46" fill="#061A12"/>
+  <!-- Outer glow ring -->
+  <circle cx="300" cy="206" r="66" fill="none" stroke="#C9A85A" stroke-width="0.4" opacity="0.17"/>
+  <!-- Interior crescent highlight -->
+  <path d="M268,193 Q273,216 274,230 Q260,213 255,193 Q253,178 268,193 Z" fill="#C9A85A" opacity="0.09"/>
+  <!-- Top sparkle (pulsing) -->
+  <path d="M300,143 L301.8,150 L308.4,151.8 L301.8,153.6 L300,160 L298.2,153.6 L291.6,151.8 L298.2,150 Z"
+    fill="#C9A85A" opacity="0.5">
+    <animate attributeName="opacity" values="0.28;0.72;0.28" dur="4.2s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- ═══ STARS ═══ -->
+  <circle cx="215" cy="160" r="2" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.25;0.65;0.25" dur="3.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="388" cy="167" r="1.5" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.2;0.58;0.2" dur="2.9s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="166" cy="258" r="1.5" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.18;0.52;0.18" dur="4.0s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="432" cy="265" r="2" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.22;0.62;0.22" dur="4.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="152" cy="346" r="1.5" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.12;0.42;0.12" dur="5.2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="450" cy="332" r="1.5" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.14;0.44;0.14" dur="3.7s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="232" cy="122" r="1" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.2;0.52;0.2" dur="2.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="364" cy="126" r="1" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.18;0.48;0.18" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+  <!-- 4-point sparkle stars -->
+  <path d="M193,196 L194.3,191 L195.6,196 L200.8,197.3 L195.6,198.6 L194.3,203.8 L193,198.6 L187.8,197.3 Z" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.18;0.52;0.18" dur="4.7s" repeatCount="indefinite"/>
+  </path>
+  <path d="M408,205 L409,201 L410,205 L414,206 L410,207 L409,211 L408,207 L404,206 Z" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.17;0.50;0.17" dur="3.3s" repeatCount="indefinite"/>
+  </path>
+  <path d="M247,392 L248,388 L249,392 L253,393 L249,394 L248,398 L247,394 L243,393 Z" fill="#C9A85A">
+    <animate attributeName="opacity" values="0.1;0.36;0.1" dur="5.6s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- ═══ BOTANICAL — LEFT ═══ -->
+  <!-- Main stem -->
+  <path d="M48,680 Q72,598 66,510 Q58,428 80,358 Q98,304 84,238 Q76,196 95,152"
+    fill="none" stroke="#2F6B3C" stroke-width="2.8" stroke-linecap="round" opacity="0.84"/>
+  <!-- Branch L1 (lower) -->
+  <path d="M68,528 Q35,504 20,466"
+    fill="none" stroke="#2F6B3C" stroke-width="1.6" stroke-linecap="round" opacity="0.74"/>
+  <ellipse cx="14" cy="452" rx="24" ry="40" fill="url(#hLeaf)" transform="rotate(-42 14 452)" opacity="0.88"/>
+  <path d="M14,452 Q36,422 20,466" fill="none" stroke="#0e3018" stroke-width="0.6" opacity="0.28"/>
+  <ellipse cx="32" cy="474" rx="13" ry="22" fill="url(#hLeaf2)" transform="rotate(-28 32 474)" opacity="0.68"/>
+  <!-- Branch L2 (mid-low) -->
+  <path d="M75,438 Q40,414 26,376"
+    fill="none" stroke="#2F6B3C" stroke-width="1.4" stroke-linecap="round" opacity="0.68"/>
+  <ellipse cx="20" cy="362" rx="21" ry="35" fill="url(#hLeaf)" transform="rotate(-52 20 362)" opacity="0.84"/>
+  <ellipse cx="35" cy="378" rx="11" ry="19" fill="#0e2e18" transform="rotate(-36 35 378)" opacity="0.56"/>
+  <!-- Branch L3 (mid-up) -->
+  <path d="M82,362 Q48,334 42,296"
+    fill="none" stroke="#2F6B3C" stroke-width="1.2" stroke-linecap="round" opacity="0.60"/>
+  <ellipse cx="36" cy="282" rx="19" ry="32" fill="url(#hLeaf)" transform="rotate(-55 36 282)" opacity="0.80"/>
+  <ellipse cx="52" cy="298" rx="10" ry="17" fill="url(#hLeaf2)" transform="rotate(-38 52 298)" opacity="0.52"/>
+  <!-- Branch L4 (upper) -->
+  <path d="M88,294 Q58,264 60,228"
+    fill="none" stroke="#2F6B3C" stroke-width="1.0" stroke-linecap="round" opacity="0.52"/>
+  <ellipse cx="58" cy="214" rx="16" ry="27" fill="url(#hLeaf)" transform="rotate(-33 58 214)" opacity="0.72"/>
+  <!-- Accent leaves -->
+  <ellipse cx="78" cy="400" rx="8"  ry="14" fill="url(#hLeaf2)" transform="rotate(16 78 400)"  opacity="0.44"/>
+  <ellipse cx="85" cy="326" rx="7"  ry="12" fill="#2F6B3C"      transform="rotate(-8 85 326)"  opacity="0.38"/>
+  <ellipse cx="90" cy="252" rx="6"  ry="10" fill="#2F6B3C"      transform="rotate(-4 90 252)"  opacity="0.32"/>
+
+  <!-- ═══ BOTANICAL — RIGHT ═══ -->
+  <!-- Main stem -->
+  <path d="M552,680 Q528,598 534,510 Q542,428 520,358 Q502,304 516,238 Q524,196 505,152"
+    fill="none" stroke="#2F6B3C" stroke-width="2.4" stroke-linecap="round" opacity="0.74"/>
+  <!-- Branch R1 (lower) -->
+  <path d="M532,528 Q565,504 580,466"
+    fill="none" stroke="#2F6B3C" stroke-width="1.5" stroke-linecap="round" opacity="0.70"/>
+  <ellipse cx="586" cy="452" rx="22" ry="37" fill="url(#hLeaf)"  transform="rotate(42 586 452)"  opacity="0.84"/>
+  <ellipse cx="568" cy="472" rx="12" ry="20" fill="url(#hLeaf2)" transform="rotate(27 568 472)"  opacity="0.64"/>
+  <!-- Branch R2 (mid-low) -->
+  <path d="M525,438 Q560,414 574,376"
+    fill="none" stroke="#2F6B3C" stroke-width="1.3" stroke-linecap="round" opacity="0.62"/>
+  <ellipse cx="580" cy="362" rx="19" ry="32" fill="url(#hLeaf)"  transform="rotate(52 580 362)"  opacity="0.80"/>
+  <!-- Branch R3 (mid-up) -->
+  <path d="M518,362 Q552,334 558,296"
+    fill="none" stroke="#2F6B3C" stroke-width="1.1" stroke-linecap="round" opacity="0.56"/>
+  <ellipse cx="564" cy="282" rx="17" ry="29" fill="url(#hLeaf)"  transform="rotate(55 564 282)"  opacity="0.76"/>
+  <ellipse cx="548" cy="298" rx="9"  ry="15" fill="url(#hLeaf2)" transform="rotate(38 548 298)"  opacity="0.48"/>
+  <!-- Branch R4 (upper) -->
+  <path d="M512,294 Q540,264 538,228"
+    fill="none" stroke="#2F6B3C" stroke-width="0.9" stroke-linecap="round" opacity="0.48"/>
+  <ellipse cx="537" cy="215" rx="14" ry="24" fill="url(#hLeaf)"  transform="rotate(30 537 215)"  opacity="0.68"/>
+  <!-- Accent leaves -->
+  <ellipse cx="520" cy="400" rx="7" ry="12" fill="url(#hLeaf2)" transform="rotate(-15 520 400)" opacity="0.40"/>
+  <ellipse cx="513" cy="328" rx="6" ry="10" fill="#2F6B3C"      transform="rotate(10 513 328)"  opacity="0.34"/>
+
+  <!-- ═══ TOP BOTANICAL ACCENT ═══ -->
+  <path d="M274,100 Q280,78 288,72 Q291,84 282,102" fill="url(#hLeaf)" opacity="0.54"/>
+  <path d="M326,100 Q320,78 312,72 Q309,84 318,102" fill="url(#hLeaf)" opacity="0.54"/>
+  <line x1="300" y1="92" x2="300" y2="62" stroke="#2F6B3C" stroke-width="1.1" opacity="0.32"/>
+
+  <!-- ═══ SINGLE PREMIUM TAROT CARD ═══ -->
+  <!-- Card ambient glow -->
+  <ellipse cx="300" cy="502" rx="60" ry="46" fill="#C9A85A" opacity="0.05" filter="url(#hBlur12)"/>
+  <g filter="url(#hCardFx)">
+    <!-- Card body -->
+    <rect x="260" y="440" width="80" height="124" rx="7" fill="url(#hCard)"/>
+    <!-- Top overlay depth -->
+    <rect x="260" y="440" width="80" height="62" rx="7" fill="url(#hBg)" opacity="0.28"/>
+    <!-- Gold outer border -->
+    <rect x="260" y="440" width="80" height="124" rx="7"
+      fill="none" stroke="#C9A85A" stroke-width="1.3" opacity="0.68"/>
+    <!-- Inner border -->
+    <rect x="266" y="446" width="68" height="112" rx="5"
+      fill="none" stroke="#C9A85A" stroke-width="0.44" opacity="0.28"/>
+    <!-- Symbol: outer ring -->
+    <circle cx="300" cy="490" r="20" fill="none" stroke="#C9A85A" stroke-width="0.85" opacity="0.55"/>
+    <circle cx="300" cy="490" r="14" fill="#C9A85A" opacity="0.06"/>
+    <!-- Inner crescent -->
+    <circle cx="300" cy="490" r="13" fill="none" stroke="#C9A85A" stroke-width="0.7" opacity="0.48"/>
+    <circle cx="307" cy="486" r="10" fill="url(#hCard)"/>
+    <!-- 5-point star below -->
+    <path d="M300,515 L301.5,520.5 L307,520.5 L302.6,523.8 L304.2,529.3 L300,526.2 L295.8,529.3 L297.4,523.8 L293,520.5 L298.5,520.5 Z"
+      fill="#C9A85A" opacity="0.42"/>
+    <!-- Corner dots -->
+    <circle cx="270" cy="450" r="1.5" fill="#C9A85A" opacity="0.38"/>
+    <circle cx="330" cy="450" r="1.5" fill="#C9A85A" opacity="0.38"/>
+    <circle cx="270" cy="554" r="1.4" fill="#C9A85A" opacity="0.30"/>
+    <circle cx="330" cy="554" r="1.4" fill="#C9A85A" opacity="0.30"/>
+    <!-- Bottom lines -->
+    <line x1="278" y1="535" x2="322" y2="535" stroke="#C9A85A" stroke-width="0.5"  opacity="0.28"/>
+    <line x1="285" y1="541" x2="315" y2="541" stroke="#C9A85A" stroke-width="0.38" opacity="0.18"/>
+  </g>
+
+  <!-- ═══ PERIMETER ACCENT DOTS ═══ -->
+  <g fill="#C9A85A" opacity="0.36">
+    <circle cx="300" cy="95"  r="2.5"/>
+    <circle cx="300" cy="585" r="2"/>
+    <circle cx="55"  cy="340" r="2"/>
+    <circle cx="545" cy="340" r="2"/>
+    <circle cx="127" cy="167" r="1.8"/>
+    <circle cx="473" cy="167" r="1.8"/>
+    <circle cx="127" cy="513" r="1.5"/>
+    <circle cx="473" cy="513" r="1.5"/>
+  </g>
+
+  <!-- ═══ TEXTO CENTRAL ═══ -->
+  <!-- Fondo suave detrás del texto -->
+  <ellipse cx="300" cy="344" rx="108" ry="34" fill="#030e09" opacity="0.52"/>
+  <!-- Línea decorativa superior -->
+  <line x1="245" y1="316" x2="355" y2="316" stroke="#C9A85A" stroke-width="0.5" opacity="0.32"/>
+  <!-- NOCTEA -->
+  <text x="300" y="342"
+    text-anchor="middle"
+    font-family="Georgia, 'Palatino Linotype', Palatino, serif"
+    font-size="33"
+    font-weight="400"
+    letter-spacing="9"
+    fill="#C9A85A"
+    opacity="0.90">NOCTEA</text>
+  <!-- Separador puntual -->
+  <circle cx="268" cy="352" r="1.2" fill="#C9A85A" opacity="0.36"/>
+  <circle cx="332" cy="352" r="1.2" fill="#C9A85A" opacity="0.36"/>
+  <!-- · tarot · -->
+  <text x="300" y="368"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="10.5"
+    font-weight="400"
+    letter-spacing="5"
+    fill="#C9A85A"
+    opacity="0.46">· tarot ·</text>
+  <!-- Línea decorativa inferior -->
+  <line x1="245" y1="378" x2="355" y2="378" stroke="#C9A85A" stroke-width="0.5" opacity="0.32"/>
+
+  <!-- ═══ VIGNETTE (circle edge darkening) ═══ -->
+  <circle cx="300" cy="340" r="245" fill="url(#hVig)"/>
+</svg>

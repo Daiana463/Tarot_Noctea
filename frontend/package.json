@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "googleapis": "^140.0.0"
+  }
+}

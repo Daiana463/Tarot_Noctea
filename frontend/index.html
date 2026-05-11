@@ -12,60 +12,44 @@
 </head>
 <body>
 
-<!-- ─── Cookie Modal ─────────────────────────────────────────────────────── -->
-<div id="cookie-overlay" class="cookie-overlay" aria-hidden="true">
-  <div class="cookie-modal" role="dialog" aria-labelledby="cookie-modal-title" aria-modal="true">
-
-    <div class="cookie-modal-icon" aria-hidden="true">
-      <svg viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1.2"/>
-        <line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.9"/>
-        <line x1="16" y1="25" x2="22" y2="19" stroke="#C9A85A" stroke-width="0.7"/>
-        <line x1="16" y1="31" x2="10" y2="25" stroke="#C9A85A" stroke-width="0.7"/>
-      </svg>
+<!-- ─── Cookie Banner ─────────────────────────────────────────────────────── -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <p><strong>🍃 Usamos cookies</strong> para mejorar tu experiencia. Las cookies necesarias son imprescindibles para el funcionamiento del sitio. Las analíticas son opcionales.</p>
     </div>
-
-    <h2 id="cookie-modal-title" class="cookie-modal-title">Configuración de cookies</h2>
-
-    <!-- Texto principal -->
-    <div id="cookie-modal-text" class="cookie-modal-text">
-      <p>En NOCTEA usamos cookies propias necesarias para el funcionamiento del sitio. Con tu consentimiento, también podemos usar cookies analíticas opcionales para mejorar tu experiencia.</p>
-    </div>
-
-    <!-- Panel de configuración (oculto hasta pulsar "Configurar") -->
-    <div id="cookie-config-panel" class="cookie-config-panel" hidden>
-      <div class="cookie-toggle-row">
-        <div>
-          <strong>Cookies necesarias</strong>
-          <p>Imprescindibles para el funcionamiento del sitio. No pueden desactivarse.</p>
-        </div>
-        <span class="cookie-badge">Siempre activas</span>
-      </div>
-      <div class="cookie-toggle-row">
-        <div>
-          <strong>Cookies analíticas</strong>
-          <p>Nos ayudan a entender cómo usás el sitio. Son opcionales.</p>
-        </div>
-        <label class="toggle-switch" aria-label="Activar cookies analíticas">
-          <input type="checkbox" id="analytics-toggle">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Botones principales -->
-    <div class="cookie-modal-actions" id="cookie-main-actions">
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn btn-primary btn-sm">Aceptar</button>
       <button id="cookie-reject" class="btn btn-outline btn-sm">Rechazar</button>
       <button id="cookie-config" class="btn btn-ghost btn-sm">Configurar</button>
-      <button id="cookie-accept" class="btn btn-primary btn-sm">Aceptar todo</button>
     </div>
+  </div>
+</div>
 
-    <!-- Botones del panel de configuración -->
-    <div class="cookie-modal-actions" id="cookie-config-actions" hidden>
-      <button id="cookie-back" class="btn btn-ghost btn-sm">← Volver</button>
-      <button id="cookie-save-config" class="btn btn-primary btn-sm">Guardar preferencias</button>
+<!-- Cookie Config Panel -->
+<div id="cookie-config-panel" class="cookie-config-panel" hidden>
+  <div class="cookie-config-inner">
+    <h3>Configuración de cookies</h3>
+    <div class="cookie-toggle-row">
+      <div>
+        <strong>Cookies necesarias</strong>
+        <p>Imprescindibles para el funcionamiento. No se pueden desactivar.</p>
+      </div>
+      <span class="cookie-badge">Siempre activas</span>
     </div>
-
+    <div class="cookie-toggle-row">
+      <div>
+        <strong>Cookies analíticas</strong>
+        <p>Nos ayudan a entender cómo usas el sitio. Son opcionales.</p>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="analytics-toggle">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="cookie-config-actions">
+      <button id="cookie-save-config" class="btn btn-primary btn-sm">Guardar configuración</button>
+    </div>
   </div>
 </div>
 
@@ -120,15 +104,15 @@
       <ul class="hero-includes">
         <li>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10l4 4 8-8" stroke="#C9A85A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Lectura de tarot
+          Lectura de taro
         </li>
         <li>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10l4 4 8-8" stroke="#C9A85A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Oráculo de la bruja verde
+          Oráculo de la bruja verde.
         </li>
         <li>
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10l4 4 8-8" stroke="#C9A85A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Carta astral incluida
+          Carta astral incluida de regalo la primera consulta.
         </li>
       </ul>
 
@@ -316,8 +300,13 @@
       <div class="booking-step" id="step-3" hidden>
         <h3 class="step-title">Tus datos</h3>
         <p class="step-desc">Solo te pedimos lo esencial para confirmar tu reserva.</p>
-        <form id="contact-form" novalidate>
-          <div class="field-group">
+      <form id="contact-form" novalidate>
+  <!-- Web3Forms -->
+  <input type="hidden" name="access_key" value="98ef13f4-76ef-4e1c-bf04-591d3930fdb4">
+  <input type="hidden" name="subject" value="Nueva reserva NOCTEA">
+  <input type="hidden" name="from_name" value="NOCTEA Web">
+
+  <div class="field-group">
             <label for="form-nombre">Nombre completo <span aria-hidden="true">*</span></label>
             <input type="text" id="form-nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required>
             <p class="field-error" id="error-nombre" hidden></p>
@@ -637,16 +626,6 @@
     <h2 class="section-title">Contacto</h2>
     <p>Si tenés alguna consulta antes de reservar, podés escribirnos directamente.</p>
     <a href="mailto:nocteatarot@gmail.com" class="btn btn-primary">nocteatarot@gmail.com</a>
-    <div class="contact-social">
-      <a href="https://www.instagram.com/nocteatarot" target="_blank" rel="noopener noreferrer" aria-label="Instagram de NOCTEA" class="social-link">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.6"/>
-          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-          <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/>
-        </svg>
-        <span>@nocteatarot</span>
-      </a>
-    </div>
   </div>
 </section>
 
@@ -663,16 +642,6 @@
       </a>
       <p class="footer-claim">Tu guía. Tu intuición. Tu respuesta.</p>
       <p class="footer-disclaimer">NOCTEA ofrece lecturas simbólicas y espirituales. No sustituye atención médica, psicológica, legal ni financiera.</p>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/nocteatarot" target="_blank" rel="noopener noreferrer" aria-label="Instagram de NOCTEA" class="social-link social-link-footer">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor"/>
-          </svg>
-          <span>@nocteatarot</span>
-        </a>
-      </div>
     </div>
 
     <nav class="footer-nav" aria-label="Navegación footer">

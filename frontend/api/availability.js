@@ -1,7 +1,8 @@
+require('dotenv').config({ path: '.env.local' });
+
 const { google } = require('googleapis');
 
 const TIMEZONE = 'Europe/Madrid';
-const SLOT_MINUTES = 30;
 
 const AVAILABLE_SLOTS = [
   ['10:00', '10:30'],
@@ -31,17 +32,13 @@ module.exports = async function handler(req, res) {
     const { date } = req.query;
 
     if (!date) {
-      return res.status(400).json({
-        error: 'Falta la fecha.'
-      });
+      return res.status(400).json({ error: 'Falta la fecha.' });
     }
 
     const selectedDay = new Date(`${date}T12:00:00+02:00`).getDay();
 
     if (selectedDay === 0 || selectedDay === 6) {
-      return res.status(200).json({
-        slots: []
-      });
+      return res.status(200).json({ slots: [] });
     }
 
     if (!process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY || !process.env.GOOGLE_CALENDAR_ID) {
@@ -87,9 +84,9 @@ module.exports = async function handler(req, res) {
       const slotStart = buildDate(date, start);
       const slotEnd = buildDate(date, end);
 
-      const occupied = busyEvents.some(event => {
-        return overlaps(slotStart, slotEnd, event.start, event.end);
-      });
+      const occupied = busyEvents.some(event =>
+        overlaps(slotStart, slotEnd, event.start, event.end)
+      );
 
       return {
         start,
@@ -99,9 +96,7 @@ module.exports = async function handler(req, res) {
       };
     });
 
-    return res.status(200).json({
-      slots
-    });
+    return res.status(200).json({ slots });
   } catch (error) {
     console.error('Google Calendar availability error:', error);
 

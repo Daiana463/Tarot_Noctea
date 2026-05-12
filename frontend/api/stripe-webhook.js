@@ -209,13 +209,12 @@ async function createCalendarEvent(sessionId, meta) {
         description: desc,
         start: { dateTime: slotStart.toISOString(), timeZone: TIMEZONE },
         end:   { dateTime: slotEnd.toISOString(),   timeZone: TIMEZONE },
-        attendees: email ? [{ email, displayName: nombre || '' }] : [],
         reminders: { useDefault: false, overrides: [
           { method: 'email', minutes: 60 },
           { method: 'popup', minutes: 15 },
         ]},
       },
-      sendUpdates: 'all',
+      sendUpdates: 'none',
     });
     console.log(`[calendar] ✅ Evento creado correctamente. ID: ${created.data.id}`);
   } catch (insertErr) {

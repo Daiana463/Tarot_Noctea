@@ -644,7 +644,13 @@ function initCookieBanner() {
 function grantAnalytics(granted) {
   try {
     if (typeof gtag === 'function') {
-      gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
+      const state = granted ? 'granted' : 'denied';
+      gtag('consent', 'update', {
+        analytics_storage:  state,
+        ad_storage:         state,
+        ad_user_data:       state,
+        ad_personalization: state,
+      });
     }
   } catch(e) {}
 }

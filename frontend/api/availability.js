@@ -16,112 +16,85 @@ const AVAILABLE_SLOTS = [
   ['17:00', '17:30'],
   ['17:30', '18:00'],
   ['18:00', '18:30'],
-  ['18:30', '19:00']
+  ['18:30', '19:00'],
 ];
 
-// Returns '+02:00' (CEST) or '+01:00' (CET) for Europe/Madrid on a given date.
+function parsePrivateKey(raw) {
+  if (!raw) return '';
+  let key = raw.trim();
+  if (key.startsWith('"') && key.endsWith('"')) key = key.slice(1, -1);
+  if (key.includes('\\n')) key = key.replace(/\\n/g, '\n');
+  return key;
+}
+
 function getMadridOffset(dateStr) {
-  const d = new Date(dateStr + 'T12:00:00Z');
-  const year = d.getUTCFullYear();
-  const lastSunMarch = new Date(Date.UTC(year, 2, 31 - new Date(Date.UTC(year, 2, 31)).getUTCDay()));
-  const lastSunOct   = new Date(Date.UTC(year, 9, 31 - new Date(Date.UTC(year, 9, 31)).getUTCDay()));
-  return (d >= lastSunMarch && d < lastSunOct) ? '+02:00' : '+01:00';
+  const d   = new Date(dateStr + 'T12:00:00Z');
+  const y   = d.getUTCFullYear();
+  const lsm = new Date(Date.UTC(y, 2, 31 - new Date(Date.UTC(y, 2, 31)).getUTCDay()));
+  const lso = new Date(Date.UTC(y, 9, 31 - new Date(Date.UTC(y, 9, 31)).getUTCDay()));
+  return (d >= lsm && d < lso) ? '+02:00' : '+01:00';
 }
 
 function buildDate(date, time, offset) {
   return new Date(`${date}T${time}:00${offset}`);
 }
 
-function overlaps(slotStart, slotEnd, eventStart, eventEnd) {
-  return slotStart < eventEnd && slotEnd > eventStart;
+function overlaps(slotStart, slotEnd, evStart, evEnd) {
+  return slotStart < evEnd && slotEnd > evStart;
 }
 
 module.exports = async function handler(req, res) {
+  const { date } = req.query;
+
+  if (!date) return res.status(400).json({ error: 'Falta la fecha.' });
+
+  const dayOfWeek = new Date(`${date}T12:00:00Z`).getUTCDay();
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    return res.status(200).json({ slots: [] });
+  }
+
+  const calId      = process.env.GOOGLE_CALENDAR_ID;
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+  const privateKey  = parsePrivateKey(process.env.GOOGLE_PRIVATE_KEY);
+
+  if (!calId || !clientEmail || !privateKey) {
+    console.error('[availability] Variables de Google faltantes.');
+    return res.status(500).json({ error: 'Configuración de calendario incompleta.' });
+  }
+
   try {
-    const { date } = req.query;
+    const auth = new google.auth.JWT(clientEmail, null, privateKey,
+      ['https://www.googleapis.com/auth/calendar.readonly']);
 
-    if (!date) {
-      return res.status(400).json({ error: 'Falta la fecha.' });
-    }
-
-    const selectedDay = new Date(`${date}T12:00:00+02:00`).getDay();
-
-    if (selectedDay === 0 || selectedDay === 6) {
-      return res.status(200).json({ slots: [] });
-    }
-
-    if (!process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY || !process.env.GOOGLE_CALENDAR_ID) {
-      return res.status(500).json({
-        error: 'Faltan variables de entorno de Google Calendar.'
-      });
-    }
-
-    const auth = new google.auth.JWT(
-      process.env.GOOGLE_CLIENT_EMAIL,
-      null,
-      process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      ['https://www.googleapis.com/auth/calendar.readonly']
-    );
-
-    const calendar = google.calendar({
-      version: 'v3',
-      auth
-    });
-
-    const offset = getMadridOffset(date);
-    const timeMin = new Date(`${date}T00:00:00${offset}`).toISOString();
-    const timeMax = new Date(`${date}T23:59:59${offset}`).toISOString();
+    const calendar = google.calendar({ version: 'v3', auth });
+    const offset   = getMadridOffset(date);
 
     const response = await calendar.events.list({
-      calendarId: process.env.GOOGLE_CALENDAR_ID,
-      timeMin,
-      timeMax,
+      calendarId:   calId,
+      timeMin:      new Date(`${date}T00:00:00${offset}`).toISOString(),
+      timeMax:      new Date(`${date}T23:59:59${offset}`).toISOString(),
       singleEvents: true,
-      orderBy: 'startTime',
-      timeZone: TIMEZONE
+      orderBy:      'startTime',
+      timeZone:     TIMEZONE,
     });
 
-    const events = response.data.items || [];
-
-    const busyEvents = events
-      .filter(event => event.start?.dateTime && event.end?.dateTime)
-      .map(event => ({
-        start: new Date(event.start.dateTime),
-        end: new Date(event.end.dateTime)
-      }));
+    const busyEvents = (response.data.items || [])
+      .filter(e => e.start?.dateTime && e.end?.dateTime)
+      .map(e => ({ start: new Date(e.start.dateTime), end: new Date(e.end.dateTime) }));
 
     const slots = AVAILABLE_SLOTS.map(([start, end]) => {
       const slotStart = buildDate(date, start, offset);
-      const slotEnd = buildDate(date, end, offset);
-
-      const occupied = busyEvents.some(event =>
-        overlaps(slotStart, slotEnd, event.start, event.end)
-      );
-
-      return {
-        start,
-        end,
-        label: `${start} a ${end}`,
-        available: !occupied
-      };
+      const slotEnd   = buildDate(date, end,   offset);
+      const occupied  = busyEvents.some(ev => overlaps(slotStart, slotEnd, ev.start, ev.end));
+      return { start, end, label: `${start} a ${end}`, available: !occupied };
     });
 
     return res.status(200).json({ slots });
+
   } catch (error) {
-    console.error('Google Calendar availability error:', error);
-
-    const isCalendarNotFound = error?.code === 404 || error?.message?.includes('notFound') || error?.message?.includes('notACalendarUser');
-    if (isCalendarNotFound) {
-      console.error(
-        'IMPORTANTE: El calendario no existe o la cuenta de servicio no tiene acceso. ' +
-        'Si usás un Gmail personal como Calendar ID, compartí el calendario con la cuenta ' +
-        'de servicio desde Google Calendar > Configuración > Compartir. ' +
-        'Para calendarios secundarios usá el ID tipo "xxx@group.calendar.google.com".'
-      );
-    }
-
+    console.error('[availability] Error Google Calendar:', error.message, '| code:', error.code);
     return res.status(500).json({
-      error: 'No se pudo consultar disponibilidad. Contactanos directamente a nocteatarot@gmail.com.'
+      error: 'No se pudo consultar disponibilidad. Contactanos en contacto@nocteastudio.com.',
     });
   }
 };

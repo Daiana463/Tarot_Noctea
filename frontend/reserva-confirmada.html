@@ -11,24 +11,14 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .confirm-wrap {
-      min-height: 100vh;
+      min-height: 80vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 4rem 1.5rem;
-      background: var(--crema);
     }
-    .confirm-card {
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-    }
-    .confirm-icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 2rem;
-    }
+    .confirm-card { max-width: 480px; width: 100%; text-align: center; }
+    .confirm-icon { width: 72px; height: 72px; margin: 0 auto 2rem; }
     .confirm-eyebrow {
       font-family: var(--font-sans);
       font-size: 0.72rem;
@@ -39,32 +29,16 @@
     }
     .confirm-title {
       font-family: var(--font-serif);
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 400;
       color: var(--verde-noche);
-      margin: 0 0 1.1rem;
+      margin: 0 0 1rem;
       line-height: 1.2;
     }
-    .confirm-body {
-      font-size: 0.95rem;
-      color: #555;
-      line-height: 1.75;
-      margin-bottom: 0.75rem;
-    }
-    .confirm-note {
-      font-size: 0.82rem;
-      color: #999;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-    }
+    .confirm-body { font-size: .95rem; color: #555; line-height: 1.75; margin-bottom: .75rem; }
+    .confirm-note { font-size: .82rem; color: #999; margin-bottom: 2.5rem; line-height: 1.6; }
     .confirm-note a { color: var(--verde-hoja); }
-    .confirm-divider {
-      width: 40px;
-      height: 1px;
-      background: var(--dorado);
-      margin: 1.75rem auto;
-      opacity: 0.5;
-    }
+    .confirm-divider { width: 36px; height: 1px; background: var(--dorado); margin: 1.5rem auto; opacity: .5; }
   </style>
 </head>
 <body>
@@ -88,29 +62,27 @@
 
     <div class="confirm-icon">
       <svg viewBox="0 0 72 72" fill="none" aria-hidden="true">
-        <circle cx="36" cy="36" r="32" stroke="#2F6B3C" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="36" cy="36" r="32" stroke="#2F6B3C" stroke-width="1.5" opacity="0.2"/>
         <circle cx="36" cy="36" r="26" stroke="#2F6B3C" stroke-width="1.5"/>
         <path d="M24 36l8 8 16-16" stroke="#2F6B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
 
-    <p class="confirm-eyebrow">Pago confirmado</p>
-    <h1 class="confirm-title">Tu sesión está reservada</h1>
+    <p class="confirm-eyebrow">Pago recibido</p>
+    <h1 class="confirm-title">¡Gracias por reservar!</h1>
 
-    <p class="confirm-body">
-      Gracias por reservar con NOCTEA.<br>
-      Tu pago fue procesado correctamente.
-    </p>
+    <p class="confirm-body">Tu pago fue procesado correctamente.</p>
 
     <div class="confirm-divider" aria-hidden="true"></div>
 
     <p class="confirm-body">
-      Recibirás un email de confirmación con todos los detalles de tu sesión en los próximos minutos.
+      Estamos confirmando tu reserva.<br>
+      Recibirás un email con todos los detalles de tu sesión en los próximos minutos.
     </p>
 
     <p class="confirm-note">
       ¿No recibiste el email? Revisá tu carpeta de spam o escribinos a
-      <a href="mailto:nocteatarot@gmail.com">nocteatarot@gmail.com</a>.
+      <a href="mailto:contacto@nocteastudio.com">contacto@nocteastudio.com</a>.
     </p>
 
     <a href="/" class="btn btn-outline">Volver al inicio</a>

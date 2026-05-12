@@ -19,12 +19,16 @@ const AVAILABLE_SLOTS = [
   ['18:30', '19:00'],
 ];
 
-function parsePrivateKey(raw) {
-  if (!raw) return '';
-  let key = raw.trim();
-  if (key.startsWith('"') && key.endsWith('"')) key = key.slice(1, -1);
-  if (key.includes('\\n')) key = key.replace(/\\n/g, '\n');
-  return key;
+function getCalendarAuth() {
+  const saJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (!saJson) throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON no definida.');
+  const credentials = JSON.parse(saJson);
+  return new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key,
+    ['https://www.googleapis.com/auth/calendar.readonly']
+  );
 }
 
 function getMadridOffset(dateStr) {
@@ -53,19 +57,15 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ slots: [] });
   }
 
-  const calId      = process.env.GOOGLE_CALENDAR_ID;
-  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-  const privateKey  = parsePrivateKey(process.env.GOOGLE_PRIVATE_KEY);
+  const calId = process.env.GOOGLE_CALENDAR_ID;
 
-  if (!calId || !clientEmail || !privateKey) {
-    console.error('[availability] Variables de Google faltantes.');
+  if (!calId || !process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+    console.error('[availability] Faltan GOOGLE_CALENDAR_ID o GOOGLE_SERVICE_ACCOUNT_JSON.');
     return res.status(500).json({ error: 'Configuración de calendario incompleta.' });
   }
 
   try {
-    const auth = new google.auth.JWT(clientEmail, null, privateKey,
-      ['https://www.googleapis.com/auth/calendar.readonly']);
-
+    const auth     = getCalendarAuth();
     const calendar = google.calendar({ version: 'v3', auth });
     const offset   = getMadridOffset(date);
 

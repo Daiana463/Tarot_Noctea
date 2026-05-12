@@ -9,18 +9,6 @@ const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || 'contacto@nocteastu
 const FROM_EMAIL      = process.env.FROM_EMAIL        || 'contacto@nocteastudio.com';
 const SUPPORT_EMAIL   = 'contacto@nocteastudio.com';
 
-// ── Parseo robusto de la private key ────────────────────────────────────────
-// Vercel puede entregar la clave con \n literal (dos chars) o con saltos reales.
-function parsePrivateKey(raw) {
-  if (!raw) return '';
-  let key = raw.trim();
-  // Quitar comillas envolventes si las hay (copy-paste desde JSON)
-  if (key.startsWith('"') && key.endsWith('"')) key = key.slice(1, -1);
-  // Reemplazar \n literal por salto de línea real
-  if (key.includes('\\n')) key = key.replace(/\\n/g, '\n');
-  return key;
-}
-
 // ── Handler principal ────────────────────────────────────────────────────────
 
 async function handler(req, res) {
@@ -124,36 +112,42 @@ async function createCalendarEvent(sessionId, meta) {
     return { error: true };
   }
 
-  const calId       = process.env.GOOGLE_CALENDAR_ID;
-  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-  const privateKey  = parsePrivateKey(process.env.GOOGLE_PRIVATE_KEY);
+  const calId = process.env.GOOGLE_CALENDAR_ID;
+  const saJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
 
-  // ── Logs de diagnóstico seguros ────────────────────────────────────────────
-  console.log('[calendar:diag] --- Variables de entorno en runtime ---');
-  console.log(`[calendar:diag] GOOGLE_CLIENT_EMAIL    : ${clientEmail || '(no definido)'}`);
-  console.log(`[calendar:diag] GOOGLE_CALENDAR_ID     : ${calId
-    ? calId.slice(0, 8) + '...' + calId.slice(-8)
-    : '(no definido)'}`);
-  console.log(`[calendar:diag] GOOGLE_PRIVATE_KEY     : ${
-    privateKey
-      ? (privateKey.startsWith('-----BEGIN PRIVATE KEY-----')
-          ? '✅ Empieza con -----BEGIN PRIVATE KEY----- (' + privateKey.length + ' chars)'
-          : '⚠️  NO empieza con -----BEGIN PRIVATE KEY----- — revisar formato')
-      : '❌ No definida o vacía'
-  }`);
-  console.log(`[calendar:diag] Intentando crear evento: ${fecha_reserva} ${horario_inicio}–${horario_fin}`);
+  // ── Logs de diagnóstico seguros ───────────────────────────────────────────
+  console.log('[calendar:diag] --- Variables en runtime ---');
+  console.log(`[calendar:diag] GOOGLE_CALENDAR_ID          : ${calId
+    ? calId.slice(0, 8) + '...' + calId.slice(-8) : '(no definido)'}`);
+  console.log(`[calendar:diag] GOOGLE_SERVICE_ACCOUNT_JSON : ${saJson ? '✅ definida' : '❌ no definida'}`);
 
-  if (!calId || !clientEmail || !privateKey) {
-    console.error('[calendar] ❌ Variables faltantes. Abortando.');
+  if (!calId || !saJson) {
+    console.error('[calendar] ❌ Faltan GOOGLE_CALENDAR_ID o GOOGLE_SERVICE_ACCOUNT_JSON.');
     return { error: true };
   }
 
-  const auth = new google.auth.JWT(clientEmail, null, privateKey,
-    ['https://www.googleapis.com/auth/calendar']);
+  let credentials;
+  try {
+    credentials = JSON.parse(saJson);
+  } catch (parseErr) {
+    console.error('[calendar] ❌ GOOGLE_SERVICE_ACCOUNT_JSON no es JSON válido:', parseErr.message);
+    return { error: true };
+  }
+
+  console.log(`[calendar] Service account email: ${credentials.client_email}`);
+  console.log(`[calendar] Calendar ID: ${calId.slice(0, 8)}...${calId.slice(-8)}`);
+  console.log(`[calendar:diag] Intentando crear evento: ${fecha_reserva} ${horario_inicio}–${horario_fin}`);
+
+  const auth = new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key,
+    ['https://www.googleapis.com/auth/calendar']
+  );
 
   try {
     await auth.authorize();
-    console.log('[calendar] ✅ Auth JWT OK — token obtenido');
+    console.log('[calendar] ✅ Auth JWT OK');
   } catch (authErr) {
     console.error('[calendar] ❌ Auth error:', authErr.message);
     console.error('[calendar] Auth error code:', authErr.code || 'n/a');

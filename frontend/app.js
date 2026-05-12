@@ -485,6 +485,7 @@ async function handlePayment() {
   const btn = document.getElementById('btn-pay');
   if (!btn) return;
 
+  const btnOriginal = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '<span>Redirigiendo a pago seguro...</span>';
 
@@ -515,13 +516,7 @@ async function handlePayment() {
 
   } catch (err) {
     btn.disabled = false;
-    btn.innerHTML = `
-      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" style="width:16px;height:16px;">
-        <rect x="2" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M2 9h16" stroke="currentColor" stroke-width="1.4"/>
-      </svg>
-      Reservar y pagar 22€
-    `;
+    btn.innerHTML = btnOriginal;
     showError(
       document.getElementById('payment-error'),
       err.message || 'Error inesperado. Por favor intentá de nuevo.'

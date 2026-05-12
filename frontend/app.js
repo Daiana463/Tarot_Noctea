@@ -620,11 +620,13 @@ function initCookieBanner() {
   on('cookie-accept', 'click', () => {
     saveCookieConsent('accepted');
     hideCookieBanner();
+    grantAnalytics(true);
   });
 
   on('cookie-reject', 'click', () => {
     saveCookieConsent('rejected');
     hideCookieBanner();
+    grantAnalytics(false);
   });
 
   on('cookie-config', 'click', () => {
@@ -635,7 +637,16 @@ function initCookieBanner() {
     const analytics = document.getElementById('analytics-toggle')?.checked || false;
     saveCookieConsent(analytics ? 'custom-accepted' : 'custom-rejected');
     hideCookieBanner();
+    grantAnalytics(analytics);
   });
+}
+
+function grantAnalytics(granted) {
+  try {
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
+    }
+  } catch(e) {}
 }
 
 function footerResetCookies() {

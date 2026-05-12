@@ -29,6 +29,21 @@
     .badge-opt { background: rgba(201,168,90,0.12); color: #7a6022; padding: 0.15rem 0.5rem; border-radius: 100px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
     .manage-center { text-align: center; margin: 2rem 0; }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3YY3NKW2H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('consent', 'default', { analytics_storage: 'denied' });
+    gtag('config', 'G-L3YY3NKW2H');
+    try {
+      var _nc = localStorage.getItem('noctea_consent_v2');
+      if (_nc === 'accepted' || _nc === 'custom-accepted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch(e) {}
+  </script>
 </head>
 <body>
 <header class="header">

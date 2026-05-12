@@ -34,6 +34,21 @@
     .service-box p:last-child { margin-bottom: 0; }
     .service-box strong { color: var(--verde-noche); }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3YY3NKW2H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('consent', 'default', { analytics_storage: 'denied' });
+    gtag('config', 'G-L3YY3NKW2H');
+    try {
+      var _nc = localStorage.getItem('noctea_consent_v2');
+      if (_nc === 'accepted' || _nc === 'custom-accepted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch(e) {}
+  </script>
 </head>
 <body>
 <header class="header">

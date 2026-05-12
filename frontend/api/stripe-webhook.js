@@ -124,30 +124,39 @@ async function createCalendarEvent(sessionId, meta) {
     return { error: true };
   }
 
-  const calId      = process.env.GOOGLE_CALENDAR_ID;
+  const calId       = process.env.GOOGLE_CALENDAR_ID;
   const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
   const privateKey  = parsePrivateKey(process.env.GOOGLE_PRIVATE_KEY);
 
+  // ── Logs de diagnóstico seguros ────────────────────────────────────────────
+  console.log('[calendar:diag] --- Variables de entorno en runtime ---');
+  console.log(`[calendar:diag] GOOGLE_CLIENT_EMAIL    : ${clientEmail || '(no definido)'}`);
+  console.log(`[calendar:diag] GOOGLE_CALENDAR_ID     : ${calId
+    ? calId.slice(0, 8) + '...' + calId.slice(-8)
+    : '(no definido)'}`);
+  console.log(`[calendar:diag] GOOGLE_PRIVATE_KEY     : ${
+    privateKey
+      ? (privateKey.startsWith('-----BEGIN PRIVATE KEY-----')
+          ? '✅ Empieza con -----BEGIN PRIVATE KEY----- (' + privateKey.length + ' chars)'
+          : '⚠️  NO empieza con -----BEGIN PRIVATE KEY----- — revisar formato')
+      : '❌ No definida o vacía'
+  }`);
+  console.log(`[calendar:diag] Intentando crear evento: ${fecha_reserva} ${horario_inicio}–${horario_fin}`);
+
   if (!calId || !clientEmail || !privateKey) {
-    console.error('[calendar] Variables de entorno faltantes:',
-      { calId: !!calId, clientEmail: !!clientEmail, privateKey: !!privateKey });
+    console.error('[calendar] ❌ Variables faltantes. Abortando.');
     return { error: true };
   }
-
-  // Diagnóstico de clave (nunca loguear la clave completa)
-  console.log(`[calendar] client_email: ${clientEmail}`);
-  console.log(`[calendar] private_key empieza con: ${privateKey.substring(0, 40)}...`);
-  console.log(`[calendar] calendar_id: ${calId}`);
 
   const auth = new google.auth.JWT(clientEmail, null, privateKey,
     ['https://www.googleapis.com/auth/calendar']);
 
-  // Verificar autenticación explícitamente para obtener errores claros
   try {
     await auth.authorize();
-    console.log('[calendar] ✅ Auth OK');
+    console.log('[calendar] ✅ Auth JWT OK — token obtenido');
   } catch (authErr) {
     console.error('[calendar] ❌ Auth error:', authErr.message);
+    console.error('[calendar] Auth error code:', authErr.code || 'n/a');
     throw authErr;
   }
 
@@ -156,11 +165,27 @@ async function createCalendarEvent(sessionId, meta) {
   const slotStart = new Date(`${fecha_reserva}T${horario_inicio}:00${offset}`);
   const slotEnd   = new Date(`${fecha_reserva}T${horario_fin}:00${offset}`);
 
+  console.log(`[calendar:diag] slotStart ISO : ${slotStart.toISOString()}`);
+  console.log(`[calendar:diag] slotEnd ISO   : ${slotEnd.toISOString()}`);
+  console.log(`[calendar:diag] offset Madrid  : ${offset}`);
+
   // Verificar disponibilidad + idempotencia
-  const checkRes  = await calendar.events.list({
-    calendarId: calId, timeMin: slotStart.toISOString(),
-    timeMax: slotEnd.toISOString(), singleEvents: true,
-  });
+  let checkRes;
+  try {
+    checkRes = await calendar.events.list({
+      calendarId: calId, timeMin: slotStart.toISOString(),
+      timeMax: slotEnd.toISOString(), singleEvents: true,
+    });
+    console.log(`[calendar] events.list OK — ${(checkRes.data.items || []).length} evento(s) encontrado(s) en ese slot`);
+  } catch (listErr) {
+    const gErr = listErr.response?.data?.error || {};
+    console.error(`[calendar] ❌ events.list falló — HTTP ${listErr.code || listErr.status}`);
+    console.error(`[calendar]   Google error code    : ${gErr.code || 'n/a'}`);
+    console.error(`[calendar]   Google error message : ${gErr.message || listErr.message}`);
+    console.error(`[calendar]   Google error status  : ${gErr.status || 'n/a'}`);
+    throw listErr;
+  }
+
   const existing  = checkRes.data.items || [];
 
   if (existing.some(e => e.description?.includes(sessionId))) return { skipped: true };
@@ -181,21 +206,32 @@ async function createCalendarEvent(sessionId, meta) {
     `Origen: Noctea Studio Web`,
   ].filter(l => l !== null).join('\n');
 
-  const created = await calendar.events.insert({
-    calendarId: calId,
-    resource: {
-      summary:     `Sesión NOCTEA — ${nombre || 'Cliente'}`,
-      description: desc,
-      start: { dateTime: slotStart.toISOString(), timeZone: TIMEZONE },
-      end:   { dateTime: slotEnd.toISOString(),   timeZone: TIMEZONE },
-      attendees: email ? [{ email, displayName: nombre || '' }] : [],
-      reminders: { useDefault: false, overrides: [
-        { method: 'email', minutes: 60 },
-        { method: 'popup', minutes: 15 },
-      ]},
-    },
-    sendUpdates: 'all',
-  });
+  let created;
+  try {
+    created = await calendar.events.insert({
+      calendarId: calId,
+      resource: {
+        summary:     `Sesión NOCTEA — ${nombre || 'Cliente'}`,
+        description: desc,
+        start: { dateTime: slotStart.toISOString(), timeZone: TIMEZONE },
+        end:   { dateTime: slotEnd.toISOString(),   timeZone: TIMEZONE },
+        attendees: email ? [{ email, displayName: nombre || '' }] : [],
+        reminders: { useDefault: false, overrides: [
+          { method: 'email', minutes: 60 },
+          { method: 'popup', minutes: 15 },
+        ]},
+      },
+      sendUpdates: 'all',
+    });
+    console.log(`[calendar] ✅ Evento creado correctamente. ID: ${created.data.id}`);
+  } catch (insertErr) {
+    const gErr = insertErr.response?.data?.error || {};
+    console.error(`[calendar] ❌ events.insert falló — HTTP ${insertErr.code || insertErr.status}`);
+    console.error(`[calendar]   Google error code    : ${gErr.code || 'n/a'}`);
+    console.error(`[calendar]   Google error message : ${gErr.message || insertErr.message}`);
+    console.error(`[calendar]   Google error status  : ${gErr.status || 'n/a'}`);
+    throw insertErr;
+  }
 
   return { eventId: created.data.id };
 }
@@ -306,7 +342,12 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
 </table>
 </body></html>`;
 
-  await Promise.all([
+  console.log(`[email:diag] FROM_EMAIL        : ${FROM_EMAIL}`);
+  console.log(`[email:diag] NOTIFICATION_EMAIL: ${NOTIFICATION_EMAIL}`);
+  console.log(`[email:diag] to cliente        : ${email}`);
+  console.log(`[email:diag] RESEND_API_KEY    : ${process.env.RESEND_API_KEY ? '✅ definida' : '❌ no definida'}`);
+
+  const [r1, r2] = await Promise.all([
     resend.emails.send({
       from:    `NOCTEA <${FROM_EMAIL}>`,
       to:      email,
@@ -324,4 +365,7 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
       html:    nocteaHtml,
     }),
   ]);
+
+  console.log(`[email] ✅ Email cliente enviado  — id: ${r1?.data?.id || r1?.id || 'n/a'}`);
+  console.log(`[email] ✅ Email interno enviado  — id: ${r2?.data?.id || r2?.id || 'n/a'}`);
 }

@@ -272,8 +272,10 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
       ${td('Importe',   '<strong>22 €</strong>')}
     </table>
     <p style="font-family:sans-serif;font-size:14px;color:#555;line-height:1.75;margin:0 0 16px;">
-      Me pondré en contacto contigo para coordinar los detalles de la sesión.
-      Para cambios o cancelaciones escribime con al menos 24 horas de anticipación a
+      Tu sesión está confirmada para el día y horario indicados. Me pondré en contacto contigo próximamente para coordinar los últimos detalles.
+    </p>
+    <p style="font-family:sans-serif;font-size:14px;color:#555;line-height:1.75;margin:0 0 16px;">
+      Para cambios o cancelaciones, escribime con al menos 24 horas de anticipación a
       <a href="mailto:${SUPPORT_EMAIL}" style="color:#2F6B3C;text-decoration:none;">${SUPPORT_EMAIL}</a>.
     </p>
     <p style="font-family:Georgia,serif;font-size:15px;color:#2F6B3C;font-style:italic;margin:0 0 4px;">Con cariño,</p>

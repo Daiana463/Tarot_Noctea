@@ -1005,9 +1005,65 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   border-color: #ddd;
   color: #bbb;
   cursor: not-allowed;
-  text-decoration: line-through;
+  text-decoration: none;
   font-size: 0.82rem;
+  line-height: 1.2;
 }
+.slot-btn.slot-verifying {
+  opacity: 0.45;
+  border-top: 2px solid var(--verde-hoja);
+  cursor: not-allowed;
+}
+.slot-btn.slot-error {
+  opacity: 0.3;
+  cursor: not-allowed;
+  line-height: 1.2;
+}
+.slot-tag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 400;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+.slots-status {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--verde-hoja);
+  text-align: center;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Cookie banner (fijo en borde inferior) ──────────────────────────────── */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  background: var(--verde-noche);
+  border-top: 1px solid rgba(201, 168, 90, 0.22);
+  padding: 1rem 1.5rem;
+  display: none;
+}
+.cookie-banner.is-visible { display: block; }
+.cookie-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  max-width: var(--max-w);
+  margin-inline: auto;
+}
+.cookie-text p {
+  font-size: 0.84rem;
+  color: rgba(255, 253, 247, 0.75);
+  margin: 0;
+  line-height: 1.5;
+}
+.cookie-text strong { color: rgba(255, 253, 247, 0.95); }
+.cookie-actions { display: flex; gap: 0.5rem; flex-shrink: 0; align-items: center; }
 
 /* Contact form */
 .field-group {

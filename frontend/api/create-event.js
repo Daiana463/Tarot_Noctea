@@ -110,7 +110,7 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     console.error('Error al crear evento en Google Calendar:', error);
     return res.status(500).json({
-      error: 'No se pudo registrar el evento. Tu pago fue procesado: contactanos a nocteatarot@gmail.com.'
+      error: 'No se pudo registrar el evento. Tu pago fue procesado: contactanos a contacto@nocteastudio.com.'
     });
   }
 };

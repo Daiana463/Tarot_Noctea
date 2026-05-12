@@ -2,6 +2,13 @@
 
 const API = '/api';
 
+const SLOT_TIMES = [
+  ['10:00', '10:30'], ['10:30', '11:00'], ['11:00', '11:30'],
+  ['11:30', '12:00'], ['12:00', '12:30'], ['12:30', '13:00'],
+  ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'],
+  ['17:30', '18:00'], ['18:00', '18:30'], ['18:30', '19:00'],
+];
+
 const state = {
   currentStep: 1,
   selectedDate: null,
@@ -258,50 +265,79 @@ function goToStep4() {
 }
 
 async function loadAvailability(date) {
-  const grid = document.getElementById('slots-grid');
-  const loading = document.getElementById('slots-loading');
-  const err = document.getElementById('slots-error');
+  const grid    = document.getElementById('slots-grid');
+  const status  = document.getElementById('slots-status');
+  const err     = document.getElementById('slots-error');
   const nextBtn = document.getElementById('btn-step2-next');
 
-  if (!grid || !loading || !nextBtn) return;
+  if (!grid || !nextBtn) return;
 
-  grid.innerHTML = '';
-  loading.hidden = false;
+  // Mostrar slots placeholder inmediatamente, sin spinner
+  renderPlaceholderSlots();
+  if (status) { status.textContent = 'Verificando...'; status.hidden = false; }
   hideError(err);
-  nextBtn.disabled = true;
+  nextBtn.disabled  = true;
   state.selectedSlot = null;
 
   try {
-    const res = await fetch(`${API}/availability?date=${encodeURIComponent(date)}`);
+    const res  = await fetch(`${API}/availability?date=${encodeURIComponent(date)}`);
     const data = await res.json();
 
-    loading.hidden = true;
+    if (status) status.hidden = true;
 
     if (!res.ok) {
-      renderSlots([]);
+      renderSlots([], true);
       showError(err, data.error || 'No se pudo consultar disponibilidad.');
       return;
     }
 
     renderSlots(data.slots || []);
   } catch {
-    loading.hidden = true;
-    renderSlots([]);
-    showError(err, 'No se pudo consultar la disponibilidad real. Revisá la conexión con Google Calendar.');
+    if (status) status.hidden = true;
+    renderSlots([], true);
+    showError(err, 'No se pudo consultar la disponibilidad. Intentá de nuevo.');
   }
 }
 
-function renderSlots(slots) {
+function renderPlaceholderSlots() {
   const grid = document.getElementById('slots-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  SLOT_TIMES.forEach(([start, end]) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot-btn slot-verifying';
+    btn.textContent = `${start} a ${end}`;
+    btn.disabled = true;
+    grid.appendChild(btn);
+  });
+}
+
+function renderSlots(slots, isError = false) {
+  const grid    = document.getElementById('slots-grid');
   const nextBtn = document.getElementById('btn-step2-next');
 
   if (!grid || !nextBtn) return;
 
   grid.innerHTML = '';
+  nextBtn.disabled = true;
 
+  // Error de red o API: mostrar todos los slots como "No disponible"
+  if (isError) {
+    SLOT_TIMES.forEach(([start, end]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'slot-btn slot-error';
+      btn.innerHTML = `${start} a ${end}<span class="slot-tag">No disponible</span>`;
+      btn.disabled = true;
+      grid.appendChild(btn);
+    });
+    return;
+  }
+
+  // Sin horarios en esa fecha (ej. festivo o sin agenda)
   if (!slots.length) {
     grid.innerHTML = '<p class="slots-empty">No hay horarios disponibles para esta fecha. Elegí otro día.</p>';
-    nextBtn.disabled = true;
     return;
   }
 
@@ -309,24 +345,21 @@ function renderSlots(slots) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = `slot-btn${slot.available ? '' : ' occupied'}`;
-    btn.textContent = slot.label;
     btn.disabled = !slot.available;
 
-    if (!slot.available) {
-      btn.title = 'No disponible';
-    }
-
     if (slot.available) {
+      btn.textContent = slot.label;
       btn.addEventListener('click', () => {
         grid.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-
         btn.classList.add('selected');
         state.selectedSlot = slot;
         nextBtn.disabled = false;
-
         hideError(document.getElementById('slots-error'));
         saveState();
       });
+    } else {
+      btn.innerHTML = `${slot.label}<span class="slot-tag">Ocupado</span>`;
+      btn.title = 'No disponible';
     }
 
     grid.appendChild(btn);

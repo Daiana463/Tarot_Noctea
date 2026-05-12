@@ -32,9 +32,9 @@ function checkURLParams() {
   const pago = params.get('pago');
 
   if (pago === 'exito') {
+    createCalendarEventFromState();
     showScreen('success-bizum');
     scrollToBooking();
-    clearSavedState();
     cleanURL();
   }
 
@@ -42,6 +42,38 @@ function checkURLParams() {
     showScreen('cancel-screen');
     scrollToBooking();
     cleanURL();
+  }
+}
+
+async function createCalendarEventFromState() {
+  let saved = {};
+  try {
+    saved = JSON.parse(localStorage.getItem('noctea_state') || '{}');
+  } catch {}
+
+  // Limpiar estado de inmediato para evitar duplicados si el usuario recarga la página de éxito
+  clearSavedState();
+
+  if (!saved.selectedDate || !saved.selectedSlot?.start || !saved.selectedSlot?.end) return;
+
+  try {
+    await fetch(`${API}/create-event`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre: saved.nombre || '',
+        email: saved.email || '',
+        telefono: saved.telefono || '',
+        fecha_reserva: saved.selectedDate,
+        horario_inicio: saved.selectedSlot.start,
+        horario_fin: saved.selectedSlot.end,
+        horario_label: saved.selectedSlot.label,
+        preferencia_contacto: saved.preferencia || ''
+      })
+    });
+  } catch {
+    // Silencioso: el pago ya fue procesado y el email de Web3Forms ya salió.
+    // La propietaria puede crear el evento manualmente si es necesario.
   }
 }
 
@@ -449,7 +481,7 @@ function initEthicsChecks() {
   });
 }
 
-async function handlePayment() {
+function handlePayment() {
   const check1 = document.getElementById('ethics-check-1');
   const check2 = document.getElementById('ethics-check-2');
   const check3 = document.getElementById('legal-check-3');
@@ -475,54 +507,31 @@ async function handlePayment() {
 
   hideError(document.getElementById('payment-error'));
 
-  const btn = document.getElementById('btn-pay');
-  if (!btn) return;
+  // Notificación por email en segundo plano — no bloquea ni puede romper el flujo
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: '98ef13f4-76ef-4e1c-bf04-591d3930fdb4',
+      subject: 'Nueva reserva NOCTEA',
+      from_name: 'NOCTEA Web',
+      nombre: state.nombre,
+      email: state.email,
+      telefono: state.telefono,
+      fecha_reserva: state.selectedDate,
+      horario_reserva: state.selectedSlot?.label,
+      preferencia_contacto: state.preferencia
+    })
+  }).catch(() => {});
 
-  btn.disabled = true;
-  btn.innerHTML = '<span>Procesando...</span>';
+  // Mostrar Stripe Buy Button directamente
+  const actionsWrap = document.querySelector('#step-4 .step-actions-pay');
+  const disclaimer = document.querySelector('#step-4 .pay-disclaimer');
+  const stripeContainer = document.getElementById('stripe-embed-container');
 
-  const body = {
-    nombre: state.nombre,
-    email: state.email,
-    telefono: state.telefono,
-    fecha_reserva: state.selectedDate,
-    horario_inicio: state.selectedSlot?.start,
-    horario_fin: state.selectedSlot?.end,
-    horario_reserva: state.selectedSlot?.label,
-    preferencia_contacto: state.preferencia
-  };
-
-  try {
-    const res = await fetch(`${API}/create-checkout-session`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || 'Error al crear sesión de pago.');
-    }
-
-    if (data.url) {
-      window.location.href = data.url;
-    }
-  } catch (err) {
-    btn.disabled = false;
-    btn.innerHTML = `
-      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" style="width:16px;height:16px;">
-        <rect x="2" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M2 9h16" stroke="currentColor" stroke-width="1.4"/>
-      </svg>
-      Reservar y pagar 22€
-    `;
-
-    showError(
-      document.getElementById('payment-error'),
-      err.message || 'Error inesperado. Por favor intentá de nuevo.'
-    );
-  }
+  if (actionsWrap) actionsWrap.hidden = true;
+  if (disclaimer) disclaimer.hidden = true;
+  if (stripeContainer) stripeContainer.hidden = false;
 }
 
 function initFAQ() {

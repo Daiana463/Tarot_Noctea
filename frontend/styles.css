@@ -1307,6 +1307,16 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
 .step-actions-pay { flex-wrap: wrap; }
 .pay-disclaimer { font-size: 0.78rem; color: #999; text-align: center; margin-top: 1rem; }
 
+/* ─── Stripe Buy Button embed ─────────────────────────────────────────────── */
+.stripe-embed-wrap { margin-top: 1.75rem; text-align: center; }
+.stripe-transition-msg {
+  font-size: 0.875rem;
+  color: var(--verde-bosque);
+  margin-bottom: 1.1rem;
+  font-style: italic;
+}
+.stripe-btn-center { display: flex; justify-content: center; }
+
 /* Result screens */
 .result-screen { text-align: center; padding: 1rem 0; }
 .result-icon {

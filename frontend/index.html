@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
 <body>
 
@@ -446,7 +447,18 @@
           </button>
         </div>
 
-        <p class="pay-disclaimer">Serás redirigida a Stripe para completar el pago de forma segura. Recibirás confirmación por email.</p>
+        <p class="pay-disclaimer">Recibirás confirmación por email una vez procesado el pago.</p>
+
+        <!-- Stripe Buy Button — se muestra tras validar y enviar datos -->
+        <div id="stripe-embed-container" class="stripe-embed-wrap" hidden>
+          <p class="stripe-transition-msg">Reserva registrada. Hacé clic para completar el pago de forma segura:</p>
+          <div class="stripe-btn-center">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1TVvjPKGh2qob1E15krTTNEL"
+              publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
+            ></stripe-buy-button>
+          </div>
+        </div>
       </div>
 
       <!-- ÉXITO Stripe -->

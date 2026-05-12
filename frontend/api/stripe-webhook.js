@@ -194,7 +194,7 @@ async function createCalendarEvent(sessionId, meta) {
     preferencia_contacto ? `Vía: ${preferencia_contacto}`      : null,
     mensaje              ? `Mensaje: ${mensaje}`               : null,
     '',
-    `Importe: 22 €`,
+    `Importe: 25 €`,
     `Estado: Pago confirmado vía Stripe`,
     `Stripe Session: ${sessionId}`,
     `Origen: Noctea Studio Web`,
@@ -269,7 +269,7 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
       ${td('Horario',   label)}
       ${td('Duración',  '30 minutos')}
       ${td('Modalidad', preferencia_contacto || 'Online')}
-      ${td('Importe',   '<strong>22 €</strong>')}
+      ${td('Importe',   '<strong>25 €</strong>')}
     </table>
     <p style="font-family:sans-serif;font-size:14px;color:#555;line-height:1.75;margin:0 0 16px;">
       Tu sesión está confirmada para el día y horario indicados. Me pondré en contacto contigo próximamente para coordinar los últimos detalles.
@@ -327,7 +327,7 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
       ${td('Horario',  label)}
       ${td('Vía',      preferencia_contacto || '—')}
       ${mensaje ? td('Mensaje', `<em>${mensaje}</em>`) : ''}
-      ${td('Importe',  `<strong>${((amountPaid || 2200) / 100).toFixed(2)} €</strong>`)}
+      ${td('Importe',  `<strong>${((amountPaid || 2500) / 100).toFixed(2)} €</strong>`)}
       ${td('Pago',     'Confirmado vía Stripe')}
       ${td('Stripe ID', `<span style="font-size:11px;color:#aaa;">${sessionId}</span>`)}
     </table>

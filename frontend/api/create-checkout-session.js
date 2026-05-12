@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
             name: 'Sesión NOCTEA — Lectura completa',
             description: `${label} · ${fechaDisplay} · 30 min · Online`,
           },
-          unit_amount: 2200,
+          unit_amount: 2500,
         },
         quantity: 1,
       }],

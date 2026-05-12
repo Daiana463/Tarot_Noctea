@@ -65,11 +65,12 @@ async function handler(req, res) {
     try {
       await sendEmails({
         meta,
-        sessionId:   session.id,
-        amountPaid:  session.amount_total,
-        calConflict: Boolean(calResult.conflict),
-        calError:    Boolean(calResult.calendarError),
-        eventId:     calResult.eventId || null,
+        sessionId:    session.id,
+        amountPaid:   session.amount_total,
+        paymentDate:  new Date((session.created || Date.now() / 1000) * 1000),
+        calConflict:  Boolean(calResult.conflict),
+        calError:     Boolean(calResult.calendarError),
+        eventId:      calResult.eventId || null,
       });
       console.log('[email] ✅ Emails enviados.');
     } catch (emailErr) {
@@ -229,7 +230,7 @@ async function createCalendarEvent(sessionId, meta) {
   return { eventId: created.data.id };
 }
 
-async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, eventId }) {
+async function sendEmails({ meta, sessionId, amountPaid, paymentDate, calConflict, calError, eventId }) {
   if (!process.env.RESEND_API_KEY) {
     console.warn('[email] RESEND_API_KEY no configurado.');
     return;
@@ -246,46 +247,116 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   });
 
-  const td = (k, v) => `<tr>
-    <td style="padding:8px 0;color:#888;font-size:13px;font-family:sans-serif;width:120px;vertical-align:top;">${k}</td>
-    <td style="padding:8px 0;font-size:14px;font-family:sans-serif;color:#151515;">${v}</td>
-  </tr>`;
+  const paymentDateDisplay = (paymentDate || new Date()).toLocaleDateString('es-ES', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  });
 
-  // ── Email al cliente ─────────────────────────────────────────────────────
-  const clientHtml = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#F5F0E8;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F0E8;padding:40px 20px;">
+  const row = (label, value) => `
+    <tr>
+      <td style="padding:10px 16px;font-family:sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#9aaa99;white-space:nowrap;vertical-align:top;width:38%;">${label}</td>
+      <td style="padding:10px 16px;font-family:sans-serif;font-size:14px;color:#1a2e1a;font-weight:500;vertical-align:top;">${value}</td>
+    </tr>`;
+
+  // ── Email al cliente — diseño premium ────────────────────────────────────
+  const clientHtml = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Confirmación NOCTEA STUDIO</title>
+</head>
+<body style="margin:0;padding:0;background:#F0EBE0;font-family:sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0EBE0;padding:48px 20px;">
 <tr><td align="center">
-<table width="100%" style="max-width:520px;background:#FFFDF7;border-radius:12px;overflow:hidden;font-family:Georgia,serif;">
-  <tr><td style="background:#061A12;padding:24px 32px;">
-    <p style="margin:0;font-family:sans-serif;font-size:11px;letter-spacing:0.18em;color:#C9A85A;text-transform:uppercase;">NOCTEA</p>
-  </td></tr>
-  <tr><td style="padding:36px 32px 28px;">
-    <h1 style="margin:0 0 8px;font-size:26px;font-weight:400;color:#061A12;line-height:1.2;">Tu sesión está confirmada</h1>
-    <p style="margin:0 0 28px;font-family:sans-serif;font-size:15px;color:#2F6B3C;">Gracias, ${nombre || 'consultante'}. Tu pago fue recibido.</p>
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #DCE8D6;border-bottom:1px solid #DCE8D6;margin-bottom:28px;">
-      ${td('Fecha',     fechaDisplay)}
-      ${td('Horario',   label)}
-      ${td('Duración',  '30 minutos')}
-      ${td('Modalidad', preferencia_contacto || 'Online')}
-      ${td('Importe',   '<strong>25 €</strong>')}
-    </table>
-    <p style="font-family:sans-serif;font-size:14px;color:#555;line-height:1.75;margin:0 0 16px;">
-      Tu sesión está confirmada para el día y horario indicados. Me pondré en contacto contigo próximamente para coordinar los últimos detalles.
-    </p>
-    <p style="font-family:sans-serif;font-size:14px;color:#555;line-height:1.75;margin:0 0 16px;">
-      Para cambios o cancelaciones, escribime con al menos 24 horas de anticipación a
-      <a href="mailto:${SUPPORT_EMAIL}" style="color:#2F6B3C;text-decoration:none;">${SUPPORT_EMAIL}</a>.
-    </p>
-    <p style="font-family:Georgia,serif;font-size:15px;color:#2F6B3C;font-style:italic;margin:0 0 4px;">Con cariño,</p>
-    <p style="font-family:sans-serif;font-size:14px;font-weight:600;color:#061A12;margin:0;">NOCTEA</p>
-  </td></tr>
-  <tr><td style="padding:18px 32px;background:#F7F3EA;border-top:1px solid #DCE8D6;">
-    <p style="margin:0;font-family:sans-serif;font-size:11px;color:#bbb;line-height:1.6;">
-      La lectura NOCTEA es una guía simbólica y espiritual. No reemplaza asesoramiento médico, psicológico, legal ni financiero.
-    </p>
-  </td></tr>
+<table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+
+  <!-- Cabecera verde noche -->
+  <tr>
+    <td style="background:#061A12;border-radius:14px 14px 0 0;padding:36px 48px;text-align:center;">
+      <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.3em;color:#C9A85A;text-transform:uppercase;">✦ NOCTEA STUDIO ✦</p>
+      <p style="margin:0;font-size:11px;letter-spacing:0.12em;color:rgba(255,253,247,0.38);text-transform:uppercase;">Lecturas que iluminan tu camino</p>
+    </td>
+  </tr>
+
+  <!-- Franja dorada -->
+  <tr><td style="background:linear-gradient(90deg,#b8943a,#C9A85A,#b8943a);height:2px;"></td></tr>
+
+  <!-- Cuerpo principal -->
+  <tr>
+    <td style="background:#FFFDF7;padding:48px 48px 36px;">
+
+      <!-- Título -->
+      <h1 style="margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:400;color:#061A12;line-height:1.25;text-align:center;">
+        Gracias por confiar en<br>NOCTEA STUDIO
+      </h1>
+      <p style="margin:0 0 8px;text-align:center;font-size:14px;color:#2F6B3C;line-height:1.6;">
+        Tu pago ha sido procesado correctamente.
+      </p>
+      <p style="margin:0 0 36px;text-align:center;font-size:13px;color:#888;line-height:1.6;">
+        A continuación encontrarás el detalle de tu reserva.
+      </p>
+
+      <!-- Separador dorado -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+        <tr>
+          <td style="width:45%;border-top:1px solid #e4ddd0;"></td>
+          <td style="width:10%;text-align:center;font-size:12px;color:#C9A85A;padding:0 8px;">✦</td>
+          <td style="width:45%;border-top:1px solid #e4ddd0;"></td>
+        </tr>
+      </table>
+
+      <!-- Bloque: Detalle de pago -->
+      <p style="margin:0 0 10px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C9A85A;font-weight:600;">Detalle de pago</p>
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F3EA;border-radius:10px;margin-bottom:24px;border:1px solid #e8e2d8;overflow:hidden;">
+        ${row('Importe pagado', '<strong style="color:#061A12;">25 €</strong>')}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Fecha de pago', paymentDateDisplay)}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Método', 'Tarjeta · Procesado por Stripe')}
+      </table>
+
+      <!-- Bloque: Detalle de reserva -->
+      <p style="margin:0 0 10px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C9A85A;font-weight:600;">Detalle de tu reserva</p>
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F3EA;border-radius:10px;margin-bottom:32px;border:1px solid #e8e2d8;overflow:hidden;">
+        ${row('Sesión', 'Sesión NOCTEA STUDIO — Lectura completa')}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Día', fechaDisplay)}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Horario', label)}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Duración', '30 minutos')}
+        <tr><td colspan="2" style="border-top:1px solid #e8e2d8;"></td></tr>
+        ${row('Modalidad', preferencia_contacto || 'Online')}
+      </table>
+
+      <!-- Contacto -->
+      <table width="100%" cellpadding="0" cellspacing="0" style="background:#EEF4ED;border-radius:10px;margin-bottom:36px;border:1px solid #d3e4d0;">
+        <tr>
+          <td style="padding:20px 24px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:13px;color:#2F6B3C;font-weight:600;">¿Tenés alguna consulta?</p>
+            <a href="mailto:${SUPPORT_EMAIL}" style="font-size:13px;color:#1a5a2a;text-decoration:none;font-weight:500;">${SUPPORT_EMAIL}</a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Firma -->
+      <p style="margin:0 0 4px;text-align:center;font-family:Georgia,serif;font-size:15px;color:#2F6B3C;font-style:italic;">Con cariño,</p>
+      <p style="margin:0;text-align:center;font-size:13px;letter-spacing:0.12em;color:#061A12;text-transform:uppercase;font-weight:600;">NOCTEA STUDIO</p>
+
+    </td>
+  </tr>
+
+  <!-- Footer verde noche -->
+  <tr>
+    <td style="background:#061A12;border-radius:0 0 14px 14px;padding:22px 48px;text-align:center;">
+      <p style="margin:0;font-size:11px;color:rgba(255,253,247,0.35);line-height:1.7;">
+        La lectura NOCTEA STUDIO es una guía simbólica y espiritual.<br>
+        No reemplaza asesoramiento médico, psicológico, legal ni financiero.
+      </p>
+    </td>
+  </tr>
+
 </table>
 </td></tr>
 </table>
@@ -312,7 +383,7 @@ async function sendEmails({ meta, sessionId, amountPaid, calConflict, calError, 
 <tr><td align="center">
 <table width="100%" style="max-width:520px;background:#fff;border-radius:12px;overflow:hidden;">
   <tr><td style="background:#061A12;padding:20px 28px;">
-    <p style="margin:0;font-family:sans-serif;font-size:11px;letter-spacing:0.15em;color:#C9A85A;text-transform:uppercase;">NOCTEA — Nueva reserva</p>
+    <p style="margin:0;font-family:sans-serif;font-size:11px;letter-spacing:0.15em;color:#C9A85A;text-transform:uppercase;">NOCTEA STUDIO — Nueva reserva</p>
   </td></tr>
   <tr><td style="padding:28px;">
     <h2 style="margin:0 0 20px;font-family:Georgia,serif;font-weight:400;color:#061A12;font-size:22px;">

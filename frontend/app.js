@@ -10,7 +10,7 @@ const state = {
   email: '',
   telefono: '',
   preferencia: '',
-  paymentMethod: null
+  mensaje: ''
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,7 +32,7 @@ function checkURLParams() {
   const pago = params.get('pago');
 
   if (pago === 'exito') {
-    createCalendarEventFromState();
+    clearSavedState();
     showScreen('success-bizum');
     scrollToBooking();
     cleanURL();
@@ -42,38 +42,6 @@ function checkURLParams() {
     showScreen('cancel-screen');
     scrollToBooking();
     cleanURL();
-  }
-}
-
-async function createCalendarEventFromState() {
-  let saved = {};
-  try {
-    saved = JSON.parse(localStorage.getItem('noctea_state') || '{}');
-  } catch {}
-
-  // Limpiar estado de inmediato para evitar duplicados si el usuario recarga la página de éxito
-  clearSavedState();
-
-  if (!saved.selectedDate || !saved.selectedSlot?.start || !saved.selectedSlot?.end) return;
-
-  try {
-    await fetch(`${API}/create-event`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nombre: saved.nombre || '',
-        email: saved.email || '',
-        telefono: saved.telefono || '',
-        fecha_reserva: saved.selectedDate,
-        horario_inicio: saved.selectedSlot.start,
-        horario_fin: saved.selectedSlot.end,
-        horario_label: saved.selectedSlot.label,
-        preferencia_contacto: saved.preferencia || ''
-      })
-    });
-  } catch {
-    // Silencioso: el pago ya fue procesado y el email de Web3Forms ya salió.
-    // La propietaria puede crear el evento manualmente si es necesario.
   }
 }
 
@@ -95,7 +63,8 @@ function saveState() {
       nombre: state.nombre,
       email: state.email,
       telefono: state.telefono,
-      preferencia: state.preferencia
+      preferencia: state.preferencia,
+      mensaje: state.mensaje
     }));
   } catch {}
 }
@@ -129,6 +98,11 @@ function restoreState() {
       state.preferencia = saved.preferencia;
       const radio = document.querySelector(`input[name="preferencia"][value="${saved.preferencia}"]`);
       if (radio) radio.checked = true;
+    }
+
+    if (saved.mensaje) {
+      state.mensaje = saved.mensaje;
+      setVal('form-mensaje', saved.mensaje);
     }
   } catch {}
 }
@@ -376,7 +350,7 @@ function renderDateLabel() {
 function initSlotSelection() {}
 
 function initContactForm() {
-  ['form-nombre', 'form-email', 'form-telefono'].forEach(id => {
+  ['form-nombre', 'form-email', 'form-telefono', 'form-mensaje'].forEach(id => {
     const el = document.getElementById(id);
 
     if (el) {
@@ -440,9 +414,10 @@ function validateContactForm() {
 }
 
 function collectFormData() {
-  state.nombre = getVal('form-nombre').trim();
-  state.email = getVal('form-email').trim();
-  state.telefono = getVal('form-telefono').trim();
+  state.nombre    = getVal('form-nombre').trim();
+  state.email     = getVal('form-email').trim();
+  state.telefono  = getVal('form-telefono').trim();
+  state.mensaje   = getVal('form-mensaje').trim();
 
   const pref = document.querySelector('input[name="preferencia"]:checked');
   state.preferencia = pref ? pref.value : '';
@@ -481,7 +456,7 @@ function initEthicsChecks() {
   });
 }
 
-function handlePayment() {
+async function handlePayment() {
   const check1 = document.getElementById('ethics-check-1');
   const check2 = document.getElementById('ethics-check-2');
   const check3 = document.getElementById('legal-check-3');
@@ -507,31 +482,51 @@ function handlePayment() {
 
   hideError(document.getElementById('payment-error'));
 
-  // Notificación por email en segundo plano — no bloquea ni puede romper el flujo
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      access_key: '98ef13f4-76ef-4e1c-bf04-591d3930fdb4',
-      subject: 'Nueva reserva NOCTEA',
-      from_name: 'NOCTEA Web',
-      nombre: state.nombre,
-      email: state.email,
-      telefono: state.telefono,
-      fecha_reserva: state.selectedDate,
-      horario_reserva: state.selectedSlot?.label,
-      preferencia_contacto: state.preferencia
-    })
-  }).catch(() => {});
+  const btn = document.getElementById('btn-pay');
+  if (!btn) return;
 
-  // Mostrar Stripe Buy Button directamente
-  const actionsWrap = document.querySelector('#step-4 .step-actions-pay');
-  const disclaimer = document.querySelector('#step-4 .pay-disclaimer');
-  const stripeContainer = document.getElementById('stripe-embed-container');
+  btn.disabled = true;
+  btn.innerHTML = '<span>Redirigiendo a pago seguro...</span>';
 
-  if (actionsWrap) actionsWrap.hidden = true;
-  if (disclaimer) disclaimer.hidden = true;
-  if (stripeContainer) stripeContainer.hidden = false;
+  try {
+    const res = await fetch(`${API}/create-checkout-session`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nombre:         state.nombre,
+        email:          state.email,
+        telefono:       state.telefono,
+        mensaje:        state.mensaje,
+        fecha_reserva:  state.selectedDate,
+        horario_inicio: state.selectedSlot?.start,
+        horario_fin:    state.selectedSlot?.end,
+        horario_label:  state.selectedSlot?.label,
+        preferencia:    state.preferencia
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.url) {
+      throw new Error(data.error || 'No se pudo iniciar el pago. Intentá de nuevo.');
+    }
+
+    window.location.href = data.url;
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = `
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" style="width:16px;height:16px;">
+        <rect x="2" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M2 9h16" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+      Reservar y pagar 22€
+    `;
+    showError(
+      document.getElementById('payment-error'),
+      err.message || 'Error inesperado. Por favor intentá de nuevo.'
+    );
+  }
 }
 
 function initFAQ() {

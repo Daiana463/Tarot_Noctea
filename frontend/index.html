@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
 <body>
 
@@ -302,12 +301,8 @@
         <h3 class="step-title">Tus datos</h3>
         <p class="step-desc">Solo te pedimos lo esencial para confirmar tu reserva.</p>
       <form id="contact-form" novalidate>
-  <!-- Web3Forms -->
-  <input type="hidden" name="access_key" value="98ef13f4-76ef-4e1c-bf04-591d3930fdb4">
-  <input type="hidden" name="subject" value="Nueva reserva NOCTEA">
-  <input type="hidden" name="from_name" value="NOCTEA Web">
 
-  <div class="field-group">
+          <div class="field-group">
             <label for="form-nombre">Nombre completo <span aria-hidden="true">*</span></label>
             <input type="text" id="form-nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required>
             <p class="field-error" id="error-nombre" hidden></p>
@@ -321,6 +316,10 @@
             <label for="form-telefono">Teléfono <span aria-hidden="true">*</span></label>
             <input type="tel" id="form-telefono" name="telefono" placeholder="+34 600 000 000" autocomplete="tel" required>
             <p class="field-error" id="error-telefono" hidden></p>
+          </div>
+          <div class="field-group">
+            <label for="form-mensaje">Mensaje opcional</label>
+            <textarea id="form-mensaje" name="mensaje" placeholder="¿Hay algo que quieras compartir antes de la sesión?" rows="3" style="resize:vertical;"></textarea>
           </div>
           <div class="field-group">
             <label>Preferencia de consulta <span aria-hidden="true">*</span></label>
@@ -447,18 +446,7 @@
           </button>
         </div>
 
-        <p class="pay-disclaimer">Recibirás confirmación por email una vez procesado el pago.</p>
-
-        <!-- Stripe Buy Button — se muestra tras validar y enviar datos -->
-        <div id="stripe-embed-container" class="stripe-embed-wrap" hidden>
-          <p class="stripe-transition-msg">Reserva registrada. Hacé clic para completar el pago de forma segura:</p>
-          <div class="stripe-btn-center">
-            <stripe-buy-button
-              buy-button-id="buy_btn_1TVvjPKGh2qob1E15krTTNEL"
-              publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
-            ></stripe-buy-button>
-          </div>
-        </div>
+        <p class="pay-disclaimer">Serás redirigida a Stripe para completar el pago. Recibirás confirmación por email.</p>
       </div>
 
       <!-- ÉXITO Stripe -->

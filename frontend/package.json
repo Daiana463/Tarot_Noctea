@@ -4,6 +4,8 @@
   },
   "dependencies": {
     "dotenv": "^17.4.2",
-    "googleapis": "^140.0.1"
+    "googleapis": "^140.0.1",
+    "resend": "^4.8.0",
+    "stripe": "^17.7.0"
   }
 }

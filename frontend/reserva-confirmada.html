@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva confirmada — NOCTEA</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .confirm-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+      background: var(--crema);
+    }
+    .confirm-card {
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .confirm-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 2rem;
+    }
+    .confirm-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--verde-hoja);
+      margin-bottom: 0.75rem;
+    }
+    .confirm-title {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      font-weight: 400;
+      color: var(--verde-noche);
+      margin: 0 0 1.1rem;
+      line-height: 1.2;
+    }
+    .confirm-body {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+    .confirm-note {
+      font-size: 0.82rem;
+      color: #999;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .confirm-note a { color: var(--verde-hoja); }
+    .confirm-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--dorado);
+      margin: 1.75rem auto;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="logo" aria-label="NOCTEA inicio">
+      <svg class="logo-leaf" viewBox="0 0 32 40" fill="none" aria-hidden="true">
+        <path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1"/>
+        <line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.8"/>
+        <line x1="16" y1="24" x2="22" y2="18" stroke="#C9A85A" stroke-width="0.6"/>
+        <line x1="16" y1="30" x2="10" y2="24" stroke="#C9A85A" stroke-width="0.6"/>
+      </svg>
+      <span class="logo-text">NOCTEA</span>
+    </a>
+  </nav>
+</header>
+
+<main class="confirm-wrap">
+  <div class="confirm-card">
+
+    <div class="confirm-icon">
+      <svg viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <circle cx="36" cy="36" r="32" stroke="#2F6B3C" stroke-width="1.5" opacity="0.25"/>
+        <circle cx="36" cy="36" r="26" stroke="#2F6B3C" stroke-width="1.5"/>
+        <path d="M24 36l8 8 16-16" stroke="#2F6B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <p class="confirm-eyebrow">Pago confirmado</p>
+    <h1 class="confirm-title">Tu sesión está reservada</h1>
+
+    <p class="confirm-body">
+      Gracias por reservar con NOCTEA.<br>
+      Tu pago fue procesado correctamente.
+    </p>
+
+    <div class="confirm-divider" aria-hidden="true"></div>
+
+    <p class="confirm-body">
+      Recibirás un email de confirmación con todos los detalles de tu sesión en los próximos minutos.
+    </p>
+
+    <p class="confirm-note">
+      ¿No recibiste el email? Revisá tu carpeta de spam o escribinos a
+      <a href="mailto:nocteatarot@gmail.com">nocteatarot@gmail.com</a>.
+    </p>
+
+    <a href="/" class="btn btn-outline">Volver al inicio</a>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2024 NOCTEA · Lecturas simbólicas y espirituales</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

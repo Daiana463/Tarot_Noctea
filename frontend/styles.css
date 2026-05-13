@@ -119,6 +119,22 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
 }
 .section-title { color: var(--verde-noche); }
 
+/* ─── Aviso de edad ──────────────────────────────────────────────────────── */
+.aviso-edad {
+  background: rgba(201,168,90,0.07);
+  border-bottom: 1px solid rgba(201,168,90,0.22);
+  text-align: center;
+  padding: 0.45rem 1.5rem;
+}
+.aviso-edad p {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--verde-bosque);
+  margin: 0;
+  text-transform: uppercase;
+}
+
 /* ─── Cookie Banner ──────────────────────────────────────────────────────── */
 .cookie-banner {
   position: fixed;
@@ -298,6 +314,12 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   border-bottom: 1px solid rgba(255,255,255,0.1);
   display: block;
 }
+.mobile-nav .btn {
+  width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+}
 
 /* ─── Hero ───────────────────────────────────────────────────────────────── */
 .hero {
@@ -435,6 +457,9 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   height: auto;
   display: block;
 }
+
+/* Checkbox oculto requerido por flujo JS */
+.check-hidden { display: none; }
 
 /* ─── Minerva ────────────────────────────────────────────────────────────── */
 .minerva-section {

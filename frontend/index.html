@@ -124,11 +124,6 @@
   </div>
 </header>
 
-<!-- ─── Aviso de edad ─────────────────────────────────────────────────────── -->
-<div class="aviso-edad" role="note">
-  <p>Servicio exclusivo para mayores de 18 años</p>
-</div>
-
 <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
 <section class="hero" id="inicio">
   <div class="container hero-grid">
@@ -168,11 +163,7 @@
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="8" width="14" height="10" rx="2" stroke="#2F6B3C" stroke-width="1.2"/><path d="M7 8V6a3 3 0 016 0v2" stroke="#2F6B3C" stroke-width="1.2" stroke-linecap="round"/></svg>
           Pago seguro
         </span>
-        <span class="badge">
-          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l1.8 5.5H18l-5.4 3.9 2 6.1L10 14l-4.6 3.5 2-6.1L2 7.5h6.2z" stroke="#2F6B3C" stroke-width="1.1" fill="none"/></svg>
-          Garantía 5 min
-        </span>
-      </div>
+       </div>
 
       <p class="disclaimer-small">Lectura simbólica y espiritual. No reemplaza asesoramiento médico, psicológico, legal ni financiero.</p>
     </div>
@@ -604,24 +595,31 @@
           </div>
         </div>
 
+        <div class="ethics-warning">
+          <p>Las lecturas NOCTEA se centran en <strong>orientación simbólica, decisiones vitales y autoconocimiento</strong>. Para temas médicos, legales o de salud mental severa, lo apropiado es buscar profesionales especializados.</p>
+        </div>
+
         <div class="ethics-checks">
           <label class="check-label">
             <input type="checkbox" id="ethics-check-1">
             <span class="check-box" aria-hidden="true"></span>
-            <span>He leído y acepto que las sesiones de NOCTEA tienen carácter orientativo e interpretativo y no sustituyen asesoramiento médico, psicológico, legal ni financiero.</span>
+            <span>He leído y acepto que la lectura NOCTEA es una guía simbólica y espiritual y que no reemplaza asesoramiento médico, psicológico, legal ni financiero.</span>
           </label>
-          <p class="field-error" id="error-check-1" hidden></p>
+          <p class="field-error" id="error-check-1" hidden>Para continuar debes aceptar el código ético.</p>
 
-          <!-- Requerido por el flujo existente — no eliminar -->
-          <input type="checkbox" id="ethics-check-2" checked class="check-hidden">
-          <p class="field-error" id="error-check-2" hidden></p>
+          <label class="check-label">
+            <input type="checkbox" id="ethics-check-2">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>Entiendo y acepto los límites éticos de consulta de NOCTEA.</span>
+          </label>
+          <p class="field-error" id="error-check-2" hidden>Debes aceptar los límites éticos para continuar.</p>
 
           <label class="check-label">
             <input type="checkbox" id="legal-check-3">
             <span class="check-box" aria-hidden="true"></span>
-            <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>, y confirmo ser mayor de 18 años.</span>
+            <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>.</span>
           </label>
-          <p class="field-error" id="error-check-3" hidden></p>
+          <p class="field-error" id="error-check-3" hidden>Debes aceptar la Política de Privacidad y las Condiciones de Contratación para continuar.</p>
         </div>
 
         <div class="stripe-info">

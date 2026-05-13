@@ -616,6 +616,21 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   line-height: 1.65;
 }
 
+/* Aviso legal de servicio — dentro de includes-section */
+.aviso-servicio {
+  max-width: 720px;
+  margin: 2.5rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,253,247,0.1);
+  text-align: center;
+}
+.aviso-servicio p {
+  font-size: 0.78rem;
+  color: rgba(255,253,247,0.38);
+  line-height: 1.75;
+  margin: 0;
+}
+
 /* ─── Cómo funciona (3 pasos) ─────────────────────────────────────────────── */
 .how-section {
   padding: 5rem 0;

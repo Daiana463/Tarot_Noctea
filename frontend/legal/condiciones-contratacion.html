@@ -5,34 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, follow">
   <meta name="googlebot" content="noindex, follow">
-  <title>Condiciones de Reserva — NOCTEA</title>
+  <title>Condiciones de Reserva y Prestación de Servicios — Noctea Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
     body { background: var(--crema); }
-    .legal-wrap { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-    .legal-header-section { background: var(--verde-noche); padding: 3.5rem 1.5rem 2.5rem; text-align: center; }
-    .legal-header-section h1 { color: var(--blanco); font-size: clamp(1.8rem,4vw,2.6rem); margin-bottom: 0.5rem; }
-    .legal-header-section p { color: rgba(255,253,247,0.5); font-size: 0.82rem; }
-    h2 { font-family: var(--font-serif); font-size: 1.25rem; color: var(--verde-noche); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--verde-salvia); }
-    p, li { color: #3d3d3d; line-height: 1.78; font-size: 0.94rem; margin-bottom: 0.75rem; }
+    .legal-wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+    .legal-header-section { background: var(--verde-noche); padding: 4rem 1.5rem 3rem; text-align: center; }
+    .legal-header-section h1 { color: var(--blanco); font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 0.6rem; line-height: 1.25; }
+    .legal-header-section p { color: rgba(255,253,247,0.45); font-size: 0.8rem; letter-spacing: 0.04em; }
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--verde-noche);
+      margin: 3rem 0 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--verde-salvia);
+      font-weight: 500;
+    }
+    p { color: #3d3d3d; line-height: 1.82; font-size: 0.94rem; margin-bottom: 0.85rem; }
     ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
-    li { margin-bottom: 0.35rem; }
+    li { color: #3d3d3d; line-height: 1.78; font-size: 0.94rem; margin-bottom: 0.4rem; }
     ol { list-style: decimal; }
     ul { list-style: disc; }
-    .placeholder { background: var(--verde-salvia); padding: 0.15rem 0.45rem; border-radius: 4px; font-style: italic; color: var(--verde-bosque); font-size: 0.88rem; }
-    .highlight-box { background: rgba(47,107,60,0.06); border-left: 3px solid var(--verde-hoja); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; margin: 1.25rem 0; }
-    .highlight-box p { margin-bottom: 0.35rem; }
+    a { color: var(--verde-hoja); text-decoration: underline; text-underline-offset: 2px; }
+    a:hover { color: var(--verde-bosque); }
+    .highlight-box {
+      background: rgba(47,107,60,0.05);
+      border-left: 3px solid var(--verde-hoja);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+    }
+    .highlight-box p { margin-bottom: 0.35rem; font-size: 0.92rem; }
     .highlight-box p:last-child { margin-bottom: 0; }
-    .warning-box { background: rgba(192,57,43,0.05); border-left: 3px solid rgba(192,57,43,0.4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; margin: 1.25rem 0; }
-    .warning-box p { color: #8b2c22; margin-bottom: 0; }
-    .legal-back { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--verde-salvia); }
-    .service-box { background: var(--crema); border: 1.5px solid var(--verde-salvia); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.25rem 0; }
-    .service-box p { margin-bottom: 0.35rem; }
-    .service-box p:last-child { margin-bottom: 0; }
-    .service-box strong { color: var(--verde-noche); }
+    .id-block {
+      background: var(--blanco);
+      border: 1px solid var(--verde-salvia);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .id-block p { margin: 0; font-size: 0.9rem; }
+    .id-block strong { color: var(--verde-noche); }
+    .legal-back {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--verde-salvia);
+    }
+    @media (max-width: 600px) {
+      .legal-wrap { padding: 2rem 1.25rem 5rem; }
+      h2 { font-size: 1.1rem; margin-top: 2.25rem; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3YY3NKW2H"></script>
@@ -61,10 +91,14 @@
   </script>
 </head>
 <body>
+
 <header class="header">
   <nav class="nav container">
-    <a href="../index.html" class="logo">
-      <svg class="logo-leaf" viewBox="0 0 32 40" fill="none"><path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1"/><line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.8"/></svg>
+    <a href="../index.html" class="logo" aria-label="Volver al inicio de Noctea Studio">
+      <svg class="logo-leaf" viewBox="0 0 32 40" fill="none" aria-hidden="true">
+        <path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1"/>
+        <line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.8"/>
+      </svg>
       <span class="logo-text">NOCTEA</span>
     </a>
   </nav>
@@ -78,106 +112,95 @@
 <main class="legal-wrap">
 
   <h2>1. Objeto</h2>
-  <p>Las presentes Condiciones de Reserva regulan el acceso, contratación y prestación de los servicios ofrecidos por Noctea a través de su sitio web y canales oficiales de comunicación.</p>
-  <p>La realización de una reserva implica la aceptación plena de las presentes condiciones por parte del usuario.</p>
+  <p>Las presentes Condiciones de Reserva y Prestación de Servicios regulan el acceso, la contratación, la reserva y la prestación de los servicios ofrecidos por Noctea Studio a través de su sitio web y canales oficiales de comunicación.</p>
+  <p>La realización de una reserva implica la aceptación plena, expresa e inequívoca de las presentes condiciones por parte del usuario. Se recomienda su lectura íntegra antes de confirmar cualquier contratación.</p>
 
   <h2>2. Identificación del titular</h2>
+  <div class="id-block">
+    <p><strong>Titular:</strong> Daiana Estefanía Andereggen</p>
+    <p><strong>Nombre comercial:</strong> Noctea Studio</p>
+    <p><strong>NIF:</strong> Z0811153V</p>
+    <p><strong>Correo electrónico de contacto:</strong> <a href="mailto:contacto@nocteastudio.com">contacto@nocteastudio.com</a></p>
+  </div>
+
+  <h2>3. Usuarios y mayoría de edad</h2>
+  <p>Los servicios ofrecidos por Noctea Studio están dirigidos exclusivamente a personas mayores de 18 años con plena capacidad jurídica para contratar.</p>
+  <p>Al realizar una reserva, el usuario declara expresamente ser mayor de edad y disponer de la capacidad legal suficiente para celebrar el contrato de prestación de servicios. Noctea Studio no asume responsabilidad derivada de declaraciones falsas en este sentido.</p>
+
+  <h2>4. Naturaleza de los servicios</h2>
+  <p>Noctea Studio ofrece servicios de orientación personal, acompañamiento reflexivo y consultoría interpretativa mediante metodologías simbólicas, incluyendo lecturas de tarot, oráculo y análisis de carta astral.</p>
+  <p>Los servicios prestados tienen carácter exclusivamente orientativo, reflexivo, interpretativo y de acompañamiento personal. No constituyen en ningún caso una actividad científica, clínica, predictiva ni de asesoramiento regulado.</p>
+  <p>Las sesiones de Noctea Studio no sustituyen, en ningún supuesto, la asistencia psicológica, psiquiátrica, médica, sanitaria, financiera, jurídica ni ningún otro asesoramiento o tratamiento profesional regulado por la normativa vigente.</p>
+  <p>Noctea Studio no garantiza resultados concretos, predicciones exactas ni la materialización de ningún acontecimiento futuro derivado de las sesiones realizadas. La responsabilidad sobre las decisiones personales, emocionales, profesionales, económicas o de cualquier otra índole que el usuario adopte corresponde exclusivamente al propio usuario.</p>
+
+  <h2>5. Proceso de reserva</h2>
+  <p>Las reservas podrán realizarse a través del calendario de disponibilidad, los formularios habilitados y los sistemas de pago integrados en el sitio web.</p>
+  <p>La disponibilidad de fechas y horarios estará sujeta a la agenda activa de Noctea Studio en cada momento.</p>
+  <p>La reserva no se considerará confirmada hasta que se haya recibido correctamente el pago correspondiente y Noctea Studio haya remitido la confirmación definitiva de la sesión por los medios habituales de comunicación.</p>
+  <p>Noctea Studio se reserva el derecho a rechazar o cancelar reservas en los siguientes supuestos: causas justificadas sobrevenidas, incidencias técnicas, imposibilidad de prestación del servicio, errores manifiestos en la reserva o comportamientos inapropiados por parte del usuario. En tales casos, se procederá a la devolución íntegra del importe abonado cuando la causa sea imputable a Noctea Studio.</p>
+
+  <h2>6. Precios y formas de pago</h2>
+  <p>Los precios de los servicios serán los indicados en el sitio web en el momento de realizar la reserva, expresados en euros (€) e impuestos incluidos cuando corresponda.</p>
+  <p>El pago podrá realizarse mediante los métodos habilitados en el sitio web, incluyendo plataformas de pago electrónico y otros sistemas autorizados por Noctea Studio en cada momento.</p>
+  <p>La reserva requiere el pago íntegro por adelantado para garantizar la disponibilidad del horario seleccionado. Sin la recepción del pago completo, la plaza no quedará reservada.</p>
+  <p>Noctea Studio no almacena ni gestiona directamente datos completos de tarjetas bancarias ni información financiera sensible del usuario. El procesamiento de los pagos se realiza a través de proveedores externos especializados en pagos seguros, que operan bajo sus propias políticas de seguridad y privacidad.</p>
+
+  <h2>7. Cancelación, reprogramación y derecho de desistimiento</h2>
+  <p>El usuario podrá solicitar la cancelación o reprogramación de la sesión con un mínimo de 24 horas de antelación respecto de la hora de inicio reservada, poniéndose en contacto con Noctea Studio a través de los canales oficiales de comunicación.</p>
+  <p>Las solicitudes de cancelación o reprogramación realizadas fuera de dicho plazo podrán considerarse como sesión consumida y no darán derecho a reembolso, salvo que Noctea Studio, a su criterio, estime circunstancias extraordinarias que justifiquen una valoración diferente.</p>
+  <p>En caso de incomparecencia del usuario a la sesión reservada sin previo aviso ni comunicación, la sesión se considerará realizada y no dará lugar a devolución del importe abonado.</p>
+  <p>Las devoluciones que procedan se efectuarán mediante el mismo medio de pago empleado en la operación original, en el plazo establecido por la plataforma de pago utilizada, salvo imposibilidad técnica justificada.</p>
+  <div class="highlight-box">
+    <p><strong>Derecho de desistimiento.</strong> Al realizar la reserva, el usuario solicita expresamente el inicio de la prestación del servicio en la fecha y hora seleccionadas, con pleno conocimiento de que, una vez iniciada la sesión, perderá el derecho de desistimiento reconocido por la normativa de consumidores y usuarios aplicable, conforme al artículo 103.a) del Real Decreto Legislativo 1/2007. Una vez que la sesión haya comenzado o haya sido completada, no se realizarán reembolsos por el servicio ya prestado, con independencia de la valoración subjetiva del usuario sobre el resultado de la sesión.</p>
+  </div>
+
+  <h2>8. Puntualidad y duración de las sesiones</h2>
+  <p>Las sesiones tendrán la duración indicada en el momento de la contratación del servicio.</p>
+  <p>El usuario deberá estar disponible y accesible con puntualidad en el horario reservado, por el canal de comunicación seleccionado.</p>
+  <p>Los retrasos imputables al usuario podrán descontarse del tiempo total de la sesión, sin que ello suponga una reducción del precio, con el fin de no afectar a la agenda posterior de Noctea Studio.</p>
+  <p>En caso de incidencias técnicas razonables ajenas a la voluntad de cualquiera de las partes, ambas procurarán reprogramar la sesión de buena fe y en el menor plazo posible.</p>
+
+  <h2>9. Conducta del usuario</h2>
+  <p>El usuario se compromete a mantener una conducta respetuosa, apropiada y de buena fe durante el proceso de reserva, las comunicaciones previas y la prestación del servicio.</p>
+  <p>Noctea Studio podrá rechazar, cancelar o finalizar anticipadamente una sesión, sin obligación de reembolso, en caso de que el usuario incurra en faltas de respeto, acoso, amenazas, conductas agresivas o intimidatorias, uso fraudulento o indebido del servicio, o cualquier otro comportamiento contrario a la dignidad y al correcto desarrollo de la prestación.</p>
+
+  <h2>10. Comunicaciones</h2>
+  <p>El usuario acepta que Noctea Studio pueda enviarle comunicaciones vinculadas directamente a la gestión y prestación del servicio contratado, incluyendo confirmaciones de reserva, recordatorios, avisos de cambios de horario e incidencias técnicas.</p>
+  <p>Estas comunicaciones se realizarán a través del correo electrónico u otros medios de contacto facilitados voluntariamente por el usuario durante el proceso de reserva, conforme a lo establecido en la Política de Privacidad.</p>
+
+  <h2>11. Propiedad intelectual</h2>
+  <p>Todos los contenidos del sitio web de Noctea Studio, incluyendo textos, diseños, imágenes, logotipos, elementos visuales, materiales y recursos, están protegidos por los derechos de propiedad intelectual e industrial que corresponden a su titular o a terceros que han autorizado su uso.</p>
+  <p>Queda expresamente prohibida su reproducción, distribución, comunicación pública, transformación, adaptación o cualquier otra forma de explotación, total o parcial, sin autorización previa y por escrito de Noctea Studio.</p>
+
+  <h2>12. Protección de datos personales</h2>
+  <p>El tratamiento de los datos personales facilitados durante el proceso de reserva se realizará conforme a lo establecido en la <a href="politica-privacidad.html">Política de Privacidad</a> del sitio web, de acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+  <p>El usuario declara haber leído y aceptado la Política de Privacidad antes de formalizar la reserva.</p>
+
+  <h2>13. Limitación de responsabilidad</h2>
+  <p>Sin perjuicio de lo dispuesto por la normativa imperativa aplicable, Noctea Studio no asumirá responsabilidad por los siguientes supuestos:</p>
   <ul>
-    <li><strong>Titular:</strong> Daiana Estefanía Andereggen</li>
-    <li><strong>Nombre comercial:</strong> Noctea</li>
-    <li><strong>NIF:</strong> Z0811153V</li>
-    <li><strong>Correo electrónico de contacto:</strong> contacto@nocteastudio.com</li>
+    <li>Decisiones de cualquier índole adoptadas por el usuario como consecuencia, directa o indirecta, de las sesiones realizadas.</li>
+    <li>Interpretaciones personales que el usuario realice sobre el contenido de las sesiones.</li>
+    <li>Expectativas subjetivas del usuario sobre los resultados del servicio.</li>
+    <li>Interrupciones, errores o fallos derivados de terceros proveedores tecnológicos o de infraestructura ajena al control de Noctea Studio.</li>
+    <li>Fallos de conexión a internet, incidencias en dispositivos del usuario u otras circunstancias técnicas externas.</li>
+    <li>Daños indirectos, pérdida de beneficios o perjuicios de cualquier naturaleza derivados del uso o la imposibilidad de uso de los servicios.</li>
   </ul>
+  <p>En todo caso, la responsabilidad máxima de Noctea Studio quedará limitada al importe efectivamente abonado por el usuario por el servicio específicamente contratado y objeto de la reclamación.</p>
 
-  <h2>3. Naturaleza de los servicios</h2>
-  <p>Noctea ofrece servicios de orientación personal, consultoría interpretativa y acompañamiento reflexivo mediante metodologías simbólicas, incluyendo lecturas de tarot y otras herramientas de análisis simbólico.</p>
-  <p>Los servicios prestados tienen carácter exclusivamente orientativo, interpretativo y de entretenimiento personal.</p>
-  <p>En ningún caso los servicios ofrecidos sustituyen:</p>
-  <ul>
-    <li>asistencia psicológica,</li>
-    <li>psiquiátrica,</li>
-    <li>médica,</li>
-    <li>sanitaria,</li>
-    <li>financiera,</li>
-    <li>jurídica,</li>
-    <li>ni cualquier otro asesoramiento profesional regulado.</li>
-  </ul>
-  <p>Noctea no garantiza resultados concretos, predicciones exactas ni decisiones futuras determinadas derivadas de las sesiones realizadas.</p>
-  <p>La responsabilidad sobre las decisiones personales, emocionales, profesionales o económicas adoptadas por el usuario corresponderá exclusivamente al propio usuario.</p>
+  <h2>14. Modificaciones de las condiciones</h2>
+  <p>Noctea Studio se reserva el derecho a modificar las presentes Condiciones de Reserva y Prestación de Servicios para adaptarlas a cambios normativos, técnicos o en el funcionamiento del servicio.</p>
+  <p>Las condiciones aplicables a cada reserva serán las vigentes en el momento de su formalización. Cualquier modificación posterior no afectará a reservas ya confirmadas salvo que así lo exija la normativa aplicable.</p>
 
-  <h2>4. Proceso de reserva</h2>
-  <p>Las reservas podrán realizarse a través del calendario y formularios habilitados en el Sitio Web.</p>
-  <p>La disponibilidad de fechas y horarios estará sujeta a la agenda activa de Noctea.</p>
-  <p>La reserva no se considerará confirmada hasta:</p>
-  <ul>
-    <li>la correcta recepción del pago correspondiente,</li>
-    <li>y el envío de la confirmación definitiva por parte de Noctea.</li>
-  </ul>
-  <p>Noctea se reserva el derecho a rechazar o cancelar reservas cuando existan causas justificadas, incidencias técnicas, imposibilidad de prestación del servicio o comportamientos inapropiados por parte del usuario.</p>
-
-  <h2>5. Precios y formas de pago</h2>
-  <p>Los precios de los servicios serán los indicados en el Sitio Web en el momento de la reserva.</p>
-  <p>Todos los importes se expresan en euros (€).</p>
-  <p>El pago podrá realizarse mediante los métodos habilitados en el Sitio Web, incluyendo plataformas de pago electrónico o sistemas autorizados por Noctea.</p>
-  <p>La reserva podrá requerir el pago íntegro por adelantado para garantizar la disponibilidad del horario seleccionado.</p>
-  <p>Noctea no almacena directamente datos completos de tarjetas bancarias ni información financiera sensible, siendo dichos pagos gestionados mediante proveedores especializados.</p>
-
-  <h2>6. Política de cancelación y reprogramación</h2>
-  <p>El usuario podrá solicitar la cancelación o reprogramación de la sesión con un mínimo de 24 horas de antelación respecto de la hora reservada.</p>
-  <p>Las solicitudes realizadas fuera de dicho plazo podrán considerarse como sesión consumida y no darán derecho a reembolso.</p>
-  <p>Noctea podrá valorar excepcionalmente cambios de fecha por causas justificadas, sin que ello constituya una obligación.</p>
-  <p>En caso de incomparecencia del usuario a la sesión reservada sin previo aviso, la sesión se considerará realizada.</p>
-  <p>Las devoluciones, cuando correspondan, se efectuarán utilizando el mismo medio de pago empleado en la operación original, salvo imposibilidad técnica.</p>
-
-  <h2>7. Puntualidad y duración de las sesiones</h2>
-  <p>Las sesiones tendrán la duración indicada en el momento de la contratación.</p>
-  <p>Se recomienda al usuario conectarse o estar disponible con puntualidad en el horario reservado.</p>
-  <p>Los retrasos imputables al usuario podrán descontarse del tiempo total de la sesión para no afectar la agenda posterior.</p>
-  <p>En caso de incidencias técnicas razonables ajenas al usuario o a Noctea, ambas partes intentarán reprogramar la sesión de buena fe.</p>
-
-  <h2>8. Comunicaciones</h2>
-  <p>El usuario acepta que Noctea pueda enviar comunicaciones relacionadas con:</p>
-  <ul>
-    <li>confirmaciones de reserva,</li>
-    <li>recordatorios,</li>
-    <li>cambios de horario,</li>
-    <li>incidencias técnicas,</li>
-    <li>y otras comunicaciones necesarias para la correcta prestación del servicio.</li>
-  </ul>
-  <p>Estas comunicaciones podrán realizarse por correo electrónico u otros medios facilitados voluntariamente por el usuario.</p>
-
-  <h2>9. Propiedad intelectual</h2>
-  <p>Todos los contenidos del Sitio Web, materiales, textos, diseños, elementos visuales y recursos utilizados por Noctea están protegidos por derechos de propiedad intelectual e industrial.</p>
-  <p>Queda prohibida su reproducción, distribución o utilización sin autorización expresa y por escrito.</p>
-
-  <h2>10. Protección de datos</h2>
-  <p>El tratamiento de datos personales se realizará conforme a lo establecido en la <a href="politica-privacidad.html">Política de Privacidad</a> del Sitio Web.</p>
-  <p>El usuario declara haber leído y aceptado dicha política antes de formalizar la reserva.</p>
-
-  <h2>11. Limitación de responsabilidad</h2>
-  <p>Noctea no será responsable de:</p>
-  <ul>
-    <li>decisiones adoptadas por el usuario tras las sesiones,</li>
-    <li>interpretaciones personales realizadas por el usuario,</li>
-    <li>expectativas subjetivas sobre los resultados,</li>
-    <li>interrupciones derivadas de terceros proveedores tecnológicos,</li>
-    <li>fallos de conexión,</li>
-    <li>incidencias técnicas externas,</li>
-    <li>ni daños indirectos derivados del uso de los servicios.</li>
-  </ul>
-  <p>La responsabilidad máxima de Noctea quedará limitada, en cualquier caso, al importe efectivamente abonado por el usuario por el servicio contratado.</p>
-
-  <h2>12. Modificaciones</h2>
-  <p>Noctea se reserva el derecho a modificar las presentes Condiciones de Reserva para adaptarlas a cambios legales, técnicos o de funcionamiento del servicio.</p>
-  <p>Las condiciones aplicables serán las vigentes en el momento de realizar la reserva correspondiente.</p>
-
-  <h2>13. Legislación aplicable y jurisdicción</h2>
-  <p>Las presentes condiciones se regirán por la legislación española vigente.</p>
-  <p>En caso de controversia, las partes se someterán a los Juzgados y Tribunales competentes conforme a la normativa aplicable y, cuando legalmente proceda, a los de Valencia.</p>
+  <h2>15. Legislación aplicable y jurisdicción</h2>
+  <p>Las presentes condiciones se regirán e interpretarán conforme a la legislación española vigente, incluyendo la normativa de consumidores y usuarios cuando resulte de aplicación.</p>
+  <p>En caso de controversia derivada de la interpretación, aplicación o ejecución de las presentes condiciones, las partes se someterán, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, a los Juzgados y Tribunales competentes según la normativa procesal aplicable y, cuando legalmente proceda, a los de Valencia.</p>
+  <p>Sin perjuicio de lo anterior, cuando el usuario tenga la condición de consumidor, se aplicarán las normas sobre fuero imperativo establecidas por la normativa de consumidores y usuarios vigente en España.</p>
 
   <div class="legal-back">
     <a href="../index.html" class="btn btn-outline">← Volver al inicio</a>
   </div>
+
 </main>
 </body>
 </html>

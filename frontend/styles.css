@@ -461,41 +461,37 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
 /* Checkbox oculto requerido por flujo JS */
 .check-hidden { display: none; }
 
-/* ─── Minerva ────────────────────────────────────────────────────────────── */
-.minerva-section {
+/* ─── Espacio Noctea ──────────────────────────────────────────────────────── */
+.noctea-section {
   padding: 5rem 0;
   background: var(--blanco);
 }
-.minerva-inner {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 5rem;
+.noctea-inner {
+  max-width: 680px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-.minerva-inner--no-photo {
-  grid-template-columns: 1fr;
-  max-width: 720px;
-}
-.minerva-photo {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: var(--radius-xl);
-  display: block;
-}
-.minerva-content .section-title { margin-bottom: 1.25rem; }
-.minerva-content p {
+.noctea-ornament { margin-bottom: 1.25rem; }
+.noctea-inner .section-eyebrow { margin-bottom: 0.5rem; }
+.noctea-inner .section-title { margin-bottom: 2rem; }
+.noctea-content { max-width: 580px; }
+.noctea-content p {
   color: #555;
   margin-bottom: 1rem;
   line-height: 1.75;
   font-size: 1rem;
 }
-.minerva-formacion {
+.noctea-content p:last-child { margin-bottom: 0; }
+.noctea-formacion {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.75rem;
-  margin-top: 0.25rem;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .formacion-tag {
   font-size: 0.78rem;
@@ -1480,6 +1476,8 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   .disclaimer-small { max-width: 100%; margin-inline: auto; }
   .hero-visual { display: flex; order: -1; }
   .hero-art-wrap { max-width: 320px; }
+
+  .noctea-section { padding: 3.5rem 0; }
 
   .para-quien-grid { grid-template-columns: 1fr; }
 

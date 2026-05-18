@@ -1978,3 +1978,174 @@ h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
   .products-grid { max-width: 100%; }
   .hero-highlight { padding: 0.5rem 0.75rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PIXEL-PERFECT OVERRIDES — referencia: landingnoctea.png
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Fondo global oscuro */
+body { background: var(--verde-noche); }
+
+/* Hero — highlights en fila horizontal de 3 columnas */
+.hero-highlights {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0.6rem;
+}
+.hero-highlight {
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.65rem 0.75rem;
+  align-items: flex-start;
+}
+.hero-highlight-icon { width: 28px; height: 28px; }
+.hero-highlight-icon svg { width: 16px; height: 16px; }
+.hero-highlight-label { font-size: 0.65rem; letter-spacing: 0.1em; }
+.hero-highlight-sub { font-size: 0.72rem; }
+
+/* Hero — título itálica en "transforman." */
+.hero-title em { font-style: italic; }
+
+/* Hero — ajuste de grid */
+.hero-grid { grid-template-columns: 44fr 56fr; gap: 2.5rem; }
+
+/* ─── Experiencia section ─────────────────────────────────────────────────── */
+.experiencia-section { padding: 4rem 0 4.5rem; }
+.experiencia-header { margin-bottom: 2.5rem; }
+
+/* Divider "ELIGE TU EXPERIENCIA" */
+.exp-divider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+.exp-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,90,0.25);
+}
+.exp-divider-text {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Product cards — ajustes de proporción ──────────────────────────────── */
+.products-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.product-card-inner { padding: 1.5rem 1.25rem 1.25rem; }
+.product-card--featured .product-card-inner { padding-top: 2rem; }
+
+/* Número más grande y más sutil */
+.product-num {
+  font-size: 3.2rem;
+  color: rgba(201,168,90,0.12);
+  margin-bottom: 0.35rem;
+}
+.product-card--featured .product-num { color: rgba(201,168,90,0.2); }
+
+/* Divisor más sutil */
+.product-divider { background: rgba(201,168,90,0.14); margin: 0.7rem 0; }
+
+/* Nombre más prominente */
+.product-name { font-size: 1.15rem; margin-bottom: 0.2rem; }
+
+/* Precio mucho más grande */
+.product-price-wrap { margin: 0.2rem 0; }
+.product-price-amount {
+  font-size: 4.8rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--dorado);
+}
+.product-price-eur {
+  font-size: 2rem;
+  margin-top: 0.6rem;
+  color: var(--dorado);
+}
+
+/* Features más compactos */
+.product-features { gap: 0.38rem; margin-bottom: 1.1rem; }
+.product-features li { font-size: 0.77rem; color: rgba(255,253,247,0.45); }
+
+/* Action area */
+.product-action { padding-top: 1rem; gap: 0.5rem; }
+
+/* Botón de cards */
+.btn-card-cta {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+
+/* Trust text */
+.product-trust { font-size: 0.68rem; }
+
+/* Card featured badge */
+.product-featured-badge {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  padding: 0.22rem 0.9rem;
+}
+
+/* Card featured — glow más pronunciado */
+.product-card--featured {
+  border-color: rgba(201,168,90,0.6);
+  box-shadow: 0 0 45px rgba(201,168,90,0.15), 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ─── Cómo funciona — fondo oscuro ──────────────────────────────────────── */
+.how-section { background: var(--verde-noche); padding: 4.5rem 0; }
+.how-step h3 { color: var(--blanco); }
+.how-step p { color: rgba(255,253,247,0.52); }
+.how-step-num { color: rgba(201,168,90,0.18); }
+.how-step-icon {
+  background: rgba(255,253,247,0.04);
+  border: 1px solid rgba(201,168,90,0.2);
+}
+.how-section .section-title { color: var(--blanco); }
+.how-section .section-eyebrow { color: var(--dorado); }
+
+/* ─── Importante — fondo bosque ──────────────────────────────────────────── */
+.importante-section { background: rgba(10,28,18,0.98); }
+
+/* ─── FAQ — fondo oscuro ─────────────────────────────────────────────────── */
+.faq-section { background: var(--verde-noche); }
+.faq-section .section-title { color: var(--blanco); }
+.faq-section .section-eyebrow { color: var(--dorado); }
+.faq-item { border-color: rgba(255,253,247,0.1); }
+.faq-question { color: rgba(255,253,247,0.88); }
+.faq-question:hover { color: var(--dorado); }
+.faq-answer p { color: rgba(255,253,247,0.58); }
+.faq-answer-detail { color: rgba(255,253,247,0.38) !important; }
+
+/* ─── Dudas — unificar fondo ─────────────────────────────────────────────── */
+.dudas-section { border-top: 1px solid rgba(201,168,90,0.12); }
+
+/* ─── Footer — ajustar para página oscura ───────────────────────────────── */
+.footer { border-top: 1px solid rgba(201,168,90,0.12); }
+
+/* ─── Responsive overrides ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-highlights {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hero-highlight { flex: 1 1 45%; }
+}
+@media (max-width: 480px) {
+  .hero-highlights { flex-direction: column; }
+  .hero-highlight { flex: none; width: 100%; }
+  .product-price-amount { font-size: 4rem; }
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda tu sesión — Consulta NOCTEA · 32€</title>
+  <meta name="description" content="Agenda tu Consulta NOCTEA: fecha, horario y pago seguro. Hasta 5 preguntas · Tarot + Oráculo Green Witch + Carta astral · 32€.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://www.nocteastudio.com/reserva-noctea">
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.svg" sizes="180x180">
+  <meta name="theme-color" content="#061A12">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3YY3NKW2H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    try {
+      var _nc = localStorage.getItem('noctea_consent_v2');
+      if (_nc === 'accepted' || _nc === 'custom-accepted') {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted'
+        });
+      }
+    } catch(e) {}
+    gtag('config', 'G-L3YY3NKW2H');
+  </script>
+</head>
+<body>
+
+<!-- ─── Cookie Banner ─────────────────────────────────────────────────────── -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <p><strong>Usamos cookies</strong> para mejorar tu experiencia. Las necesarias son imprescindibles; las analíticas son opcionales.</p>
+    </div>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn btn-primary btn-sm">Aceptar</button>
+      <button id="cookie-reject" class="btn btn-outline btn-sm">Rechazar</button>
+      <button id="cookie-config" class="btn btn-ghost btn-sm">Configurar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Config Panel -->
+<div id="cookie-config-panel" class="cookie-config-panel" hidden>
+  <div class="cookie-config-inner">
+    <h3>Configuración de cookies</h3>
+    <div class="cookie-toggle-row">
+      <div>
+        <strong>Cookies necesarias</strong>
+        <p>Imprescindibles para el funcionamiento. No se pueden desactivar.</p>
+      </div>
+      <span class="cookie-badge">Siempre activas</span>
+    </div>
+    <div class="cookie-toggle-row">
+      <div>
+        <strong>Cookies analíticas</strong>
+        <p>Nos ayudan a entender cómo usas el sitio. Son opcionales.</p>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="analytics-toggle">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="cookie-config-actions">
+      <button id="cookie-save-config" class="btn btn-primary btn-sm">Guardar configuración</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Header ───────────────────────────────────────────────────────────── -->
+<header class="header" id="top">
+  <nav class="nav container">
+    <a href="/" class="logo" aria-label="NOCTEA inicio">
+      <svg class="logo-leaf" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1"/>
+        <line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.8"/>
+        <line x1="16" y1="24" x2="22" y2="18" stroke="#C9A85A" stroke-width="0.6"/>
+        <line x1="16" y1="30" x2="10" y2="24" stroke="#C9A85A" stroke-width="0.6"/>
+      </svg>
+      <span class="logo-text">NOCTEA</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/#experiencia">Consultas</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+    </ul>
+    <a href="/" class="btn btn-outline nav-cta">← Volver</a>
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/#experiencia">Consultas</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+    </ul>
+    <a href="/" class="btn btn-outline">← Volver al inicio</a>
+  </div>
+</header>
+
+<!-- ─── Aviso de edad ─────────────────────────────────────────────────────── -->
+<div class="aviso-edad" role="note">
+  <p>Servicio exclusivo para mayores de 18 años</p>
+</div>
+
+<!-- ─── Reserva ───────────────────────────────────────────────────────────── -->
+<section class="booking-section" id="reserva" style="padding-top: 3rem;">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Consulta NOCTEA · 32€</p>
+      <h2 class="section-title">Agenda tu sesión</h2>
+    </div>
+
+    <div class="steps-nav" role="list">
+      <div class="step-item active" id="nav-step-1" role="listitem">
+        <div class="step-dot">1</div>
+        <span>Fecha</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="nav-step-2" role="listitem">
+        <div class="step-dot">2</div>
+        <span>Horario</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="nav-step-3" role="listitem">
+        <div class="step-dot">3</div>
+        <span>Datos</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="nav-step-4" role="listitem">
+        <div class="step-dot">4</div>
+        <span>Pago</span>
+      </div>
+    </div>
+
+    <div class="booking-card">
+
+      <!-- PASO 1: Fecha -->
+      <div class="booking-step active" id="step-1">
+        <h3 class="step-title">Elige tu fecha</h3>
+        <p class="step-desc">Disponible de lunes a viernes. Selecciona la fecha que más te convenga.</p>
+        <div class="date-picker-wrap">
+          <input type="date" id="date-input" class="date-input" aria-label="Seleccionar fecha">
+          <p id="date-error" class="field-error" hidden></p>
+        </div>
+        <div class="step-actions">
+          <button class="btn btn-primary" id="btn-step1-next">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Horario -->
+      <div class="booking-step" id="step-2" hidden>
+        <h3 class="step-title">Elige tu horario</h3>
+        <p class="step-desc">Horarios disponibles para <strong id="display-date"></strong>.</p>
+        <p id="slots-status" class="slots-status" hidden></p>
+        <div id="slots-grid" class="slots-grid" role="group" aria-label="Horarios disponibles"></div>
+        <p id="slots-error" class="field-error" hidden></p>
+        <div class="step-actions">
+          <button class="btn btn-outline" id="btn-step2-back">← Volver</button>
+          <button class="btn btn-primary" id="btn-step2-next" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Datos personales -->
+      <div class="booking-step" id="step-3" hidden>
+        <h3 class="step-title">Tus datos</h3>
+        <p class="step-desc">Solo te pedimos lo esencial para confirmar tu reserva.</p>
+        <form id="contact-form" novalidate>
+          <div class="field-group">
+            <label for="form-nombre">Nombre completo <span aria-hidden="true">*</span></label>
+            <input type="text" id="form-nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required>
+            <p class="field-error" id="error-nombre" hidden></p>
+          </div>
+          <div class="field-group">
+            <label for="form-email">Email <span aria-hidden="true">*</span></label>
+            <input type="email" id="form-email" name="email" placeholder="tucorreo@ejemplo.com" autocomplete="email" required>
+            <p class="field-error" id="error-email" hidden></p>
+          </div>
+          <div class="field-group">
+            <label for="form-telefono">Teléfono <span aria-hidden="true">*</span></label>
+            <input type="tel" id="form-telefono" name="telefono" placeholder="+34 600 000 000" autocomplete="tel" required>
+            <p class="field-error" id="error-telefono" hidden></p>
+          </div>
+          <div class="field-group">
+            <label for="form-mensaje">Mensaje opcional</label>
+            <textarea id="form-mensaje" name="mensaje" placeholder="¿Hay algo que quieras compartir antes de la sesión?" rows="3"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Preferencia de consulta <span aria-hidden="true">*</span></label>
+            <div class="preference-options" role="group" aria-label="Preferencia de consulta">
+              <label class="preference-option">
+                <input type="radio" name="preferencia" value="WhatsApp" id="pref-whatsapp">
+                <span class="preference-label">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.301-.767.966-.94 1.164-.173.199-.347.223-.644.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.372-.015-.572-.015-.2 0-.523.074-.797.359-.273.285-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z" fill="#2F6B3C" opacity="0.8"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.06L2 22l5.09-1.34C8.5 21.52 10.22 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="#2F6B3C" stroke-width="1.2" fill="none"/></svg>
+                  WhatsApp
+                </span>
+              </label>
+              <label class="preference-option">
+                <input type="radio" name="preferencia" value="Llamada telefónica" id="pref-llamada">
+                <span class="preference-label">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#2F6B3C" opacity="0.8"/></svg>
+                  Llamada telefónica
+                </span>
+              </label>
+            </div>
+            <p class="field-error" id="error-preferencia" hidden></p>
+          </div>
+        </form>
+        <p class="form-note">La información necesaria para la carta astral será solicitada tras confirmar la reserva.</p>
+        <div class="step-actions">
+          <button class="btn btn-outline" id="btn-step3-back">← Volver</button>
+          <button class="btn btn-primary" id="btn-step3-next">Ver resumen →</button>
+        </div>
+      </div>
+
+      <!-- PASO 4: Resumen y pago -->
+      <div class="booking-step" id="step-4" hidden>
+        <h3 class="step-title">Resumen y pago</h3>
+
+        <div class="summary-card">
+          <h4 class="summary-service">Consulta NOCTEA</h4>
+          <p class="summary-includes">Tarot · Oráculo Green Witch · Carta astral · Hasta 5 preguntas</p>
+          <div class="summary-grid">
+            <div class="summary-row">
+              <span class="summary-label">Fecha</span>
+              <span class="summary-value" id="sum-fecha">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Horario</span>
+              <span class="summary-value" id="sum-horario">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Nombre</span>
+              <span class="summary-value" id="sum-nombre">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Email</span>
+              <span class="summary-value" id="sum-email">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Teléfono</span>
+              <span class="summary-value" id="sum-telefono">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Consulta vía</span>
+              <span class="summary-value" id="sum-preferencia">—</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span class="summary-label">Total</span>
+              <span class="summary-value summary-price">32 €</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ethics-checks">
+          <label class="check-label">
+            <input type="checkbox" id="ethics-check-1">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>He leído y acepto que las sesiones de NOCTEA tienen carácter orientativo e interpretativo y no sustituyen asesoramiento médico, psicológico, legal ni financiero.</span>
+          </label>
+          <p class="field-error" id="error-check-1" hidden></p>
+
+          <!-- Requerido por el flujo JS existente — no eliminar ni desmarcar -->
+          <input type="checkbox" id="ethics-check-2" checked class="check-hidden">
+          <p class="field-error" id="error-check-2" hidden></p>
+
+          <label class="check-label">
+            <input type="checkbox" id="legal-check-3">
+            <span class="check-box" aria-hidden="true"></span>
+            <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>, confirmo ser mayor de 18 años y consiento expresamente el inicio del servicio en la fecha reservada.</span>
+          </label>
+          <p class="field-error" id="error-check-3" hidden></p>
+        </div>
+
+        <div class="stripe-info">
+          <svg class="stripe-icon" viewBox="0 0 38 16" fill="none" aria-hidden="true">
+            <path d="M4.5 6.5c0-.9.7-1.3 1.8-1.3 1.6 0 3.6.5 5.2 1.4V3.1C9.7 2.4 7.9 2 6.3 2 2.6 2 0 4 0 6.7c0 4.2 5.8 3.5 5.8 5.3 0 1-.9 1.4-2.1 1.4-1.8 0-4.1-.7-5.9-1.8v3.6C-.2 16 1.8 16.5 3.5 16.5c3.8 0 6.4-1.9 6.4-4.7C9.9 7.5 4.5 8.3 4.5 6.5z" fill="#6772E5" opacity="0.8" transform="translate(14,0)"/>
+          </svg>
+          <div class="stripe-info-text">
+            <strong>Pago seguro con Stripe</strong>
+            <span>Tarjeta de crédito o débito · Procesado por Stripe</span>
+          </div>
+          <svg viewBox="0 0 20 20" fill="none" class="stripe-lock" aria-hidden="true">
+            <rect x="3" y="9" width="14" height="9" rx="2" stroke="#2F6B3C" stroke-width="1.2"/>
+            <path d="M7 9V6.5a3 3 0 016 0V9" stroke="#2F6B3C" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <p id="payment-error" class="field-error" hidden></p>
+
+        <div class="step-actions step-actions-pay">
+          <button class="btn btn-outline" id="btn-step4-back">← Volver</button>
+          <stripe-buy-button
+            id="stripe-btn-noctea"
+            buy-button-id="buy_btn_1TYWqUKGh2qob1E1lBiBPH5c"
+            publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
+          ></stripe-buy-button>
+        </div>
+
+        <p class="pay-disclaimer">Serás redirigida a Stripe para completar el pago. Recibirás confirmación por email.</p>
+      </div>
+
+      <!-- ÉXITO Stripe -->
+      <div class="booking-step result-screen" id="success-bizum" hidden>
+        <div class="result-icon result-success">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" stroke="#2F6B3C" stroke-width="2"/>
+            <path d="M20 32l8 8 16-16" stroke="#2F6B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>¡Reserva confirmada!</h3>
+        <p>Tu pago se procesó correctamente. Recibirás un email de confirmación en breve y el evento quedará agendado en el calendario.</p>
+        <p class="result-note">La información necesaria para preparar tu carta astral te será solicitada por email o WhatsApp.</p>
+        <a href="/" class="btn btn-outline">Volver al inicio</a>
+      </div>
+
+      <!-- ERROR -->
+      <div class="booking-step result-screen" id="error-screen" hidden>
+        <div class="result-icon result-error">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" stroke="#c0392b" stroke-width="2"/>
+            <path d="M22 22l20 20M42 22L22 42" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Algo salió mal</h3>
+        <p id="error-msg">Se produjo un error. Por favor inténtalo de nuevo o contacta directamente con nosotros.</p>
+        <button class="btn btn-outline" id="btn-error-retry">Intentar de nuevo</button>
+      </div>
+
+      <!-- PAGO CANCELADO -->
+      <div class="booking-step result-screen" id="cancel-screen" hidden>
+        <div class="result-icon result-pending">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" stroke="#C9A85A" stroke-width="2"/>
+            <path d="M22 32h20" stroke="#C9A85A" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Pago cancelado</h3>
+        <p>Cancelaste el proceso de pago. Tu reserva no quedó confirmada.</p>
+        <button class="btn btn-primary" id="btn-cancel-retry">Intentar de nuevo</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ───────────────────────────────────────────────────────────── -->
+<footer class="footer" id="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo logo-light" aria-label="NOCTEA inicio">
+        <svg class="logo-leaf" viewBox="0 0 32 40" fill="none" aria-hidden="true">
+          <path d="M16 38C16 38 2 28 2 16C2 8.268 8.268 2 16 2C23.732 2 30 8.268 30 16C30 28 16 38 16 38Z" fill="#2F6B3C" stroke="#C9A85A" stroke-width="1"/>
+          <line x1="16" y1="38" x2="16" y2="14" stroke="#C9A85A" stroke-width="0.8"/>
+        </svg>
+        <span class="logo-text">NOCTEA</span>
+      </a>
+      <p class="footer-claim">Tarot · Oráculo · Rituales simbólicos · Audio privado</p>
+      <p class="footer-disclaimer">NOCTEA ofrece lecturas simbólicas y espirituales. No sustituye atención médica, psicológica, legal ni financiera.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Navegación footer">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/#experiencia">Consultas</a></li>
+        <li><a href="/#como-funciona">Cómo funciona</a></li>
+        <li><a href="/#faq">Preguntas frecuentes</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-legal-nav" aria-label="Páginas legales">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="legal/aviso-legal.html">Aviso legal</a></li>
+        <li><a href="legal/politica-privacidad.html">Política de privacidad</a></li>
+        <li><a href="legal/politica-cookies.html">Política de cookies</a></li>
+        <li><a href="legal/condiciones-contratacion.html">Condiciones de contratación</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2025 NOCTEA. Todos los derechos reservados.</p>
+      <p>Tarot evolutivo · Interpretación simbólica · Orientación emocional</p>
+      <button class="cookie-reset-btn" id="footer-cookie-btn" onclick="footerResetCookies()">
+        Configurar cookies
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

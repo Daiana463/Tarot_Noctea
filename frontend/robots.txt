@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /legal/
 Allow: /
 
-Sitemap: https://tudominio.com/sitemap.xml
+Sitemap: https://www.nocteastudio.com/sitemap.xml

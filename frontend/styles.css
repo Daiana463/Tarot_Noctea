@@ -2149,3 +2149,126 @@ body { background: var(--verde-noche); }
   .hero-highlight { flex: none; width: 100%; }
   .product-price-amount { font-size: 4rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AJUSTES ESTÉTICOS — referencia landingnoctea.png (segunda pasada)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Cards igual altura con botones alineados al fondo ─────────────────── */
+.products-grid { align-items: stretch; }
+.product-card { display: flex; flex-direction: column; }
+.product-card-inner { display: flex; flex-direction: column; flex: 1; }
+.product-features { flex: 1; }
+
+/* ─── "IMPORTANTE" — fondo claro/crema ──────────────────────────────────── */
+.importante-section {
+  background: var(--crema) !important;
+  padding: 4rem 0;
+}
+.imp-eyebrow { color: var(--verde-hoja) !important; }
+.imp-title { color: var(--verde-noche) !important; }
+.importante-content p { color: #555 !important; }
+.importante-ornament line,
+.importante-ornament circle { stroke: rgba(201,168,90,0.45); }
+.imp-highlight { color: var(--verde-bosque) !important; }
+
+/* ─── Aviso de edad — delicado, crema ───────────────────────────────────── */
+.aviso-edad {
+  background: var(--crema);
+  border-bottom: 1px solid rgba(201,168,90,0.2);
+}
+.aviso-edad p { color: var(--verde-bosque); }
+
+/* ─── Modal de consentimiento ────────────────────────────────────────────── */
+.consent-modal {
+  border: 1px solid rgba(201,168,90,0.3);
+  border-radius: var(--radius-xl);
+  padding: 0;
+  background: var(--verde-noche);
+  max-width: 480px;
+  width: calc(100% - 2rem);
+  color: var(--blanco);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+}
+.consent-modal::backdrop {
+  background: rgba(6,26,18,0.75);
+  backdrop-filter: blur(4px);
+}
+.consent-modal-inner {
+  padding: 2rem 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+}
+.consent-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 28px; height: 28px;
+  background: rgba(255,253,247,0.08);
+  border: 1px solid rgba(255,253,247,0.15);
+  border-radius: 50%;
+  color: rgba(255,253,247,0.6);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  line-height: 1;
+  padding: 0;
+}
+.consent-modal-close:hover {
+  background: rgba(255,253,247,0.15);
+  color: var(--blanco);
+}
+.consent-modal-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin: 0;
+}
+.consent-modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--blanco);
+  margin: -0.5rem 0 0;
+}
+.consent-modal-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(255,253,247,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.consent-modal-checks .check-label {
+  background: rgba(255,253,247,0.04);
+  border-bottom: 1px solid rgba(255,253,247,0.08);
+  color: rgba(255,253,247,0.75);
+}
+.consent-modal-checks .check-label:last-child { border-bottom: none; }
+.consent-modal-checks .check-label:hover { background: rgba(255,253,247,0.07); }
+.consent-modal-action {
+  display: flex;
+  justify-content: center;
+}
+.consent-modal-action > div { width: 100%; }
+.consent-modal-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: rgba(255,253,247,0.32);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .consent-modal-inner { padding: 1.5rem; }
+}

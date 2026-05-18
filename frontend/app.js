@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initPaymentMethods();
   initEthicsChecks();
+  initConsentModal();
   initFAQ();
   checkURLParams();
   restoreState();
@@ -788,4 +789,48 @@ function setStorage(key, val) {
   try {
     localStorage.setItem(key, val);
   } catch {}
+}
+
+// ── Modal de consentimiento para consultas 9€ y 15€ ──────────────────────────
+
+function initConsentModal() {
+  const modal  = document.getElementById('consent-modal');
+  if (!modal) return;
+
+  const check1  = document.getElementById('modal-check-1');
+  const check3  = document.getElementById('modal-check-3');
+  const wrap9   = document.getElementById('modal-stripe-9');
+  const wrap15  = document.getElementById('modal-stripe-15');
+
+  function syncGuard() {
+    const ok = check1?.checked && check3?.checked;
+    ['stripe-btn-9eur', 'stripe-btn-15eur'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.style.pointerEvents = ok ? '' : 'none';
+      btn.style.opacity       = ok ? '1' : '0.35';
+    });
+  }
+
+  check1?.addEventListener('change', syncGuard);
+  check3?.addEventListener('change', syncGuard);
+
+  document.querySelectorAll('[data-open-consent]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const product = trigger.dataset.openConsent;
+      if (check1) check1.checked = false;
+      if (check3) check3.checked = false;
+      if (wrap9)  wrap9.hidden  = (product !== '9');
+      if (wrap15) wrap15.hidden = (product !== '15');
+      syncGuard();
+      modal.showModal();
+    });
+  });
+
+  document.getElementById('consent-modal-close')
+    ?.addEventListener('click', () => modal.close());
+
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.close();
+  });
 }

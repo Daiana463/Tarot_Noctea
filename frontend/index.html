@@ -223,23 +223,7 @@
             <li>Servicio simbólico y orientativo</li>
           </ul>
           <div class="product-action">
-            <div class="card-checks">
-              <label class="card-check-label">
-                <input type="checkbox" id="card-check-1a">
-                <span class="check-box" aria-hidden="true"></span>
-                <span>Acepto el carácter orientativo de las sesiones y que no sustituyen asesoramiento médico, psicológico, legal ni financiero.</span>
-              </label>
-              <label class="card-check-label">
-                <input type="checkbox" id="card-check-3a">
-                <span class="check-box" aria-hidden="true"></span>
-                <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>. Confirmo ser mayor de 18 años.</span>
-              </label>
-            </div>
-            <stripe-buy-button
-              id="stripe-btn-9eur"
-              buy-button-id="buy_btn_1TYWy4KGh2qob1E1ztMg0HoI"
-              publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
-            ></stripe-buy-button>
+            <button class="btn btn-card-cta" data-open-consent="9" data-track="click_consulta_esencial">RESERVAR</button>
             <p class="product-trust">
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="12" height="12"><rect x="2" y="7" width="12" height="8" rx="1.5" stroke="#C9A85A" stroke-width="1.1"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#C9A85A" stroke-width="1.1" stroke-linecap="round"/></svg>
               Pago 100% seguro
@@ -272,23 +256,7 @@
             <li>Servicio simbólico y orientativo</li>
           </ul>
           <div class="product-action">
-            <div class="card-checks">
-              <label class="card-check-label">
-                <input type="checkbox" id="card-check-1b">
-                <span class="check-box" aria-hidden="true"></span>
-                <span>Acepto el carácter orientativo de las sesiones y que no sustituyen asesoramiento médico, psicológico, legal ni financiero.</span>
-              </label>
-              <label class="card-check-label">
-                <input type="checkbox" id="card-check-3b">
-                <span class="check-box" aria-hidden="true"></span>
-                <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>. Confirmo ser mayor de 18 años.</span>
-              </label>
-            </div>
-            <stripe-buy-button
-              id="stripe-btn-15eur"
-              buy-button-id="buy_btn_1TYWykKGh2qob1E1UYtdFyWv"
-              publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
-            ></stripe-buy-button>
+            <button class="btn btn-card-cta" data-open-consent="15" data-track="click_consulta_profunda">RESERVAR</button>
             <p class="product-trust">
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="12" height="12"><rect x="2" y="7" width="12" height="8" rx="1.5" stroke="#C9A85A" stroke-width="1.1"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#C9A85A" stroke-width="1.1" stroke-linecap="round"/></svg>
               Pago 100% seguro
@@ -541,6 +509,47 @@
     </div>
   </div>
 </footer>
+
+<!-- ─── Modal de consentimiento (9€ / 15€) ───────────────────────────────── -->
+<dialog id="consent-modal" class="consent-modal" aria-modal="true" aria-labelledby="consent-modal-title">
+  <div class="consent-modal-inner">
+    <button id="consent-modal-close" class="consent-modal-close" aria-label="Cerrar">&times;</button>
+    <p class="consent-modal-eyebrow">Antes de continuar</p>
+    <h3 class="consent-modal-title" id="consent-modal-title">Confirma tu consentimiento</h3>
+    <div class="consent-modal-checks">
+      <label class="check-label">
+        <input type="checkbox" id="modal-check-1">
+        <span class="check-box" aria-hidden="true"></span>
+        <span>Acepto que las sesiones de NOCTEA tienen carácter orientativo e interpretativo y no sustituyen asesoramiento médico, psicológico, legal ni financiero.</span>
+      </label>
+      <label class="check-label">
+        <input type="checkbox" id="modal-check-3">
+        <span class="check-box" aria-hidden="true"></span>
+        <span>He leído y acepto la <a href="legal/politica-privacidad.html" target="_blank" rel="noopener" class="check-link">Política de Privacidad</a> y las <a href="legal/condiciones-contratacion.html" target="_blank" rel="noopener" class="check-link">Condiciones de Contratación</a>. Confirmo ser mayor de 18 años.</span>
+      </label>
+    </div>
+    <div class="consent-modal-action">
+      <div id="modal-stripe-9" hidden>
+        <stripe-buy-button
+          id="stripe-btn-9eur"
+          buy-button-id="buy_btn_1TYWy4KGh2qob1E1ztMg0HoI"
+          publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
+        ></stripe-buy-button>
+      </div>
+      <div id="modal-stripe-15" hidden>
+        <stripe-buy-button
+          id="stripe-btn-15eur"
+          buy-button-id="buy_btn_1TYWykKGh2qob1E1UYtdFyWv"
+          publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
+        ></stripe-buy-button>
+      </div>
+    </div>
+    <p class="consent-modal-secure">
+      <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><rect x="2" y="7" width="12" height="8" rx="1.5" stroke="#2F6B3C" stroke-width="1.1"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#2F6B3C" stroke-width="1.1" stroke-linecap="round"/></svg>
+      Pago 100% seguro con Stripe
+    </p>
+  </div>
+</dialog>
 
 <script src="app.js"></script>
 </body>

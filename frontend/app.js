@@ -480,29 +480,64 @@ function initPaymentMethods() {
 }
 
 function initEthicsChecks() {
-  function syncStripeGuard() {
-    const c1 = document.getElementById('ethics-check-1');
-    const c3 = document.getElementById('legal-check-3');
-    const buyBtn = document.querySelector('stripe-buy-button');
-    if (!buyBtn) return;
-    const allowed = c1?.checked && c3?.checked;
-    buyBtn.style.pointerEvents = allowed ? '' : 'none';
-    buyBtn.style.opacity       = allowed ? '' : '0.45';
+  // Guard para el botón de 32€ en step-4
+  function syncNocteaGuard() {
+    const c1  = document.getElementById('ethics-check-1');
+    const c3  = document.getElementById('legal-check-3');
+    const btn = document.getElementById('stripe-btn-noctea');
+    if (!btn) return;
+    const ok = c1?.checked && c3?.checked;
+    btn.style.pointerEvents = ok ? '' : 'none';
+    btn.style.opacity       = ok ? '' : '0.45';
   }
 
-  ['ethics-check-1', 'ethics-check-2', 'legal-check-3'].forEach((id, i) => {
-    const el = document.getElementById(id);
-    const errId = ['error-check-1', 'error-check-2', 'error-check-3'][i];
+  // Guard para el botón de 9€ en card 01
+  function syncCard9Guard() {
+    const c1  = document.getElementById('card-check-1a');
+    const c3  = document.getElementById('card-check-3a');
+    const btn = document.getElementById('stripe-btn-9eur');
+    if (!btn) return;
+    const ok = c1?.checked && c3?.checked;
+    btn.style.pointerEvents = ok ? '' : 'none';
+    btn.style.opacity       = ok ? '' : '0.45';
+  }
 
+  // Guard para el botón de 15€ en card 02
+  function syncCard15Guard() {
+    const c1  = document.getElementById('card-check-1b');
+    const c3  = document.getElementById('card-check-3b');
+    const btn = document.getElementById('stripe-btn-15eur');
+    if (!btn) return;
+    const ok = c1?.checked && c3?.checked;
+    btn.style.pointerEvents = ok ? '' : 'none';
+    btn.style.opacity       = ok ? '' : '0.45';
+  }
+
+  // Listeners step-4 (32€)
+  ['ethics-check-1', 'ethics-check-2', 'legal-check-3'].forEach((id, i) => {
+    const el    = document.getElementById(id);
+    const errId = ['error-check-1', 'error-check-2', 'error-check-3'][i];
     if (el) {
       el.addEventListener('change', () => {
         hideError(document.getElementById(errId));
-        syncStripeGuard();
+        syncNocteaGuard();
       });
     }
   });
 
-  syncStripeGuard();
+  // Listeners card 9€
+  ['card-check-1a', 'card-check-3a'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', syncCard9Guard);
+  });
+
+  // Listeners card 15€
+  ['card-check-1b', 'card-check-3b'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', syncCard15Guard);
+  });
+
+  syncNocteaGuard();
+  syncCard9Guard();
+  syncCard15Guard();
 }
 
 async function handlePayment() {

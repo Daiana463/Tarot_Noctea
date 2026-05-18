@@ -43,10 +43,10 @@ module.exports = async function handler(req, res) {
         price_data: {
           currency: 'eur',
           product_data: {
-            name: 'Sesión NOCTEA — Lectura completa',
-            description: `${label} · ${fechaDisplay} · 30 min · Online`,
+            name: 'Consulta NOCTEA — Hasta 5 preguntas',
+            description: `${label} · ${fechaDisplay} · Tarot + Oráculo + Carta astral`,
           },
-          unit_amount: 2500,
+          unit_amount: 3200,
         },
         quantity: 1,
       }],

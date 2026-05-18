@@ -16,7 +16,7 @@ const state = {
   nombre: '',
   email: '',
   telefono: '',
-  preferencia: '',
+  preferencia: 'WhatsApp',
   mensaje: ''
 };
 
@@ -101,12 +101,6 @@ function restoreState() {
     if (saved.telefono) {
       state.telefono = saved.telefono;
       setVal('form-telefono', saved.telefono);
-    }
-
-    if (saved.preferencia) {
-      state.preferencia = saved.preferencia;
-      const radio = document.querySelector(`input[name="preferencia"][value="${saved.preferencia}"]`);
-      if (radio) radio.checked = true;
     }
 
     if (saved.mensaje) {
@@ -396,11 +390,6 @@ function initContactForm() {
     }
   });
 
-  document.querySelectorAll('input[name="preferencia"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      hideError(document.getElementById('error-preferencia'));
-    });
-  });
 }
 
 function validateContactForm() {
@@ -436,15 +425,6 @@ function validateContactForm() {
     markValid('form-telefono');
   }
 
-  const pref = document.querySelector('input[name="preferencia"]:checked');
-
-  if (!pref) {
-    showError(document.getElementById('error-preferencia'), 'Seleccioná una preferencia de consulta.');
-    valid = false;
-  } else {
-    hideError(document.getElementById('error-preferencia'));
-  }
-
   return valid;
 }
 
@@ -454,8 +434,7 @@ function collectFormData() {
   state.telefono  = getVal('form-telefono').trim();
   state.mensaje   = getVal('form-mensaje').trim();
 
-  const pref = document.querySelector('input[name="preferencia"]:checked');
-  state.preferencia = pref ? pref.value : '';
+  state.preferencia = 'WhatsApp';
 }
 
 function renderSummary() {
@@ -473,7 +452,6 @@ function renderSummary() {
   setText('sum-nombre', state.nombre || '—');
   setText('sum-email', state.email || '—');
   setText('sum-telefono', state.telefono || '—');
-  setText('sum-preferencia', state.preferencia || '—');
 }
 
 function initPaymentMethods() {

@@ -205,26 +205,6 @@
             <label for="form-mensaje">Mensaje opcional</label>
             <textarea id="form-mensaje" name="mensaje" placeholder="¿Hay algo que quieras compartir antes de la sesión?" rows="3"></textarea>
           </div>
-          <div class="field-group">
-            <label>Preferencia de consulta <span aria-hidden="true">*</span></label>
-            <div class="preference-options" role="group" aria-label="Preferencia de consulta">
-              <label class="preference-option">
-                <input type="radio" name="preferencia" value="WhatsApp" id="pref-whatsapp">
-                <span class="preference-label">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.301-.767.966-.94 1.164-.173.199-.347.223-.644.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.372-.015-.572-.015-.2 0-.523.074-.797.359-.273.285-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z" fill="#2F6B3C" opacity="0.8"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.06L2 22l5.09-1.34C8.5 21.52 10.22 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="#2F6B3C" stroke-width="1.2" fill="none"/></svg>
-                  WhatsApp
-                </span>
-              </label>
-              <label class="preference-option">
-                <input type="radio" name="preferencia" value="Llamada telefónica" id="pref-llamada">
-                <span class="preference-label">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#2F6B3C" opacity="0.8"/></svg>
-                  Llamada telefónica
-                </span>
-              </label>
-            </div>
-            <p class="field-error" id="error-preferencia" hidden></p>
-          </div>
         </form>
         <p class="form-note">La información necesaria para la carta astral será solicitada tras confirmar la reserva.</p>
         <div class="step-actions">
@@ -260,10 +240,6 @@
             <div class="summary-row">
               <span class="summary-label">Teléfono</span>
               <span class="summary-value" id="sum-telefono">—</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">Consulta vía</span>
-              <span class="summary-value" id="sum-preferencia">—</span>
             </div>
             <div class="summary-row summary-total">
               <span class="summary-label">Total</span>

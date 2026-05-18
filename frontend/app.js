@@ -480,14 +480,29 @@ function initPaymentMethods() {
 }
 
 function initEthicsChecks() {
+  function syncStripeGuard() {
+    const c1 = document.getElementById('ethics-check-1');
+    const c3 = document.getElementById('legal-check-3');
+    const buyBtn = document.querySelector('stripe-buy-button');
+    if (!buyBtn) return;
+    const allowed = c1?.checked && c3?.checked;
+    buyBtn.style.pointerEvents = allowed ? '' : 'none';
+    buyBtn.style.opacity       = allowed ? '' : '0.45';
+  }
+
   ['ethics-check-1', 'ethics-check-2', 'legal-check-3'].forEach((id, i) => {
     const el = document.getElementById(id);
     const errId = ['error-check-1', 'error-check-2', 'error-check-3'][i];
 
     if (el) {
-      el.addEventListener('change', () => hideError(document.getElementById(errId)));
+      el.addEventListener('change', () => {
+        hideError(document.getElementById(errId));
+        syncStripeGuard();
+      });
     }
   });
+
+  syncStripeGuard();
 }
 
 async function handlePayment() {

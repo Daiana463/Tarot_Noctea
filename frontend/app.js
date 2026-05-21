@@ -772,22 +772,20 @@ function setStorage(key, val) {
 // ── Modal de consentimiento para consultas 9€ y 15€ ──────────────────────────
 
 function initConsentModal() {
-  const modal  = document.getElementById('consent-modal');
+  const modal      = document.getElementById('consent-modal');
   if (!modal) return;
 
-  const check1  = document.getElementById('modal-check-1');
-  const check3  = document.getElementById('modal-check-3');
-  const wrap9   = document.getElementById('modal-stripe-9');
-  const wrap15  = document.getElementById('modal-stripe-15');
+  const check1     = document.getElementById('modal-check-1');
+  const check3     = document.getElementById('modal-check-3');
+  const payBtn     = document.getElementById('modal-pay-btn');
+  const priceLabel = document.getElementById('modal-pay-price');
+  const payError   = document.getElementById('modal-pay-error');
+
+  let selectedProduct = null;
 
   function syncGuard() {
     const ok = check1?.checked && check3?.checked;
-    ['stripe-btn-9eur', 'stripe-btn-15eur'].forEach(id => {
-      const btn = document.getElementById(id);
-      if (!btn) return;
-      btn.style.pointerEvents = ok ? '' : 'none';
-      btn.style.opacity       = ok ? '1' : '0.35';
-    });
+    if (payBtn) payBtn.disabled = !ok;
   }
 
   check1?.addEventListener('change', syncGuard);
@@ -795,14 +793,43 @@ function initConsentModal() {
 
   document.querySelectorAll('[data-open-consent]').forEach(trigger => {
     trigger.addEventListener('click', () => {
-      const product = trigger.dataset.openConsent;
+      const price  = trigger.dataset.openConsent; // '9' o '15'
+      selectedProduct = price === '9' ? 'esencial' : 'profunda';
       if (check1) check1.checked = false;
       if (check3) check3.checked = false;
-      if (wrap9)  wrap9.hidden  = (product !== '9');
-      if (wrap15) wrap15.hidden = (product !== '15');
+      if (priceLabel) priceLabel.textContent = `— ${price} €`;
+      if (payError) { payError.hidden = true; payError.textContent = ''; }
+      if (payBtn) payBtn.innerHTML = `RESERVAR Y PAGAR <span id="modal-pay-price">— ${price} €</span>`;
       syncGuard();
       modal.showModal();
     });
+  });
+
+  payBtn?.addEventListener('click', async () => {
+    if (!selectedProduct) return;
+
+    const labelHtml = payBtn.innerHTML;
+    payBtn.disabled = true;
+    payBtn.textContent = 'Redirigiendo...';
+    if (payError) { payError.hidden = true; payError.textContent = ''; }
+
+    try {
+      const res  = await fetch('/api/create-simple-checkout', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ product: selectedProduct }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) throw new Error(data.error || 'No se pudo iniciar el pago.');
+      window.location.href = data.url;
+    } catch (err) {
+      payBtn.disabled  = false;
+      payBtn.innerHTML = labelHtml;
+      if (payError) {
+        payError.textContent = err.message || 'Error inesperado. Intentá de nuevo.';
+        payError.hidden = false;
+      }
+    }
   });
 
   document.getElementById('consent-modal-close')

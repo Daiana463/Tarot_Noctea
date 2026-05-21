@@ -25,7 +25,6 @@
   <meta name="robots" content="index, follow">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L3YY3NKW2H"></script>
   <script>
@@ -529,20 +528,10 @@
       </label>
     </div>
     <div class="consent-modal-action">
-      <div id="modal-stripe-9" hidden>
-        <stripe-buy-button
-          id="stripe-btn-9eur"
-          buy-button-id="buy_btn_1TYWy4KGh2qob1E1ztMg0HoI"
-          publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
-        ></stripe-buy-button>
-      </div>
-      <div id="modal-stripe-15" hidden>
-        <stripe-buy-button
-          id="stripe-btn-15eur"
-          buy-button-id="buy_btn_1TYWykKGh2qob1E1UYtdFyWv"
-          publishable-key="pk_live_51TVridKGh2qob1E1yz1fvqXjobvwPU0m3MoU27S9iZ7BoINXuhgjQabpAudnmFwfHQ6c1IU6hhIvZn0FFW2UCtcE00Wm7xVvIb"
-        ></stripe-buy-button>
-      </div>
+      <button id="modal-pay-btn" class="btn btn-card-cta" disabled>
+        RESERVAR Y PAGAR <span id="modal-pay-price"></span>
+      </button>
+      <p id="modal-pay-error" style="color:#c0392b;font-size:13px;margin-top:10px;text-align:center;" hidden></p>
     </div>
     <p class="consent-modal-secure">
       <svg viewBox="0 0 16 16" fill="none" width="12" height="12" aria-hidden="true"><rect x="2" y="7" width="12" height="8" rx="1.5" stroke="#2F6B3C" stroke-width="1.1"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#2F6B3C" stroke-width="1.1" stroke-linecap="round"/></svg>

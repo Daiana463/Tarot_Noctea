@@ -2308,31 +2308,61 @@ body { background: var(--verde-noche); }
   .section-header { margin-bottom: 2rem; }
 
   /* ── Hero ─────────────────────────────────────────────────────────────── */
-  .hero { padding: 2.5rem 0 3rem; }
+  .hero { padding: 1.5rem 0 2.75rem; overflow-x: hidden; }
 
+  /* 1 columna limpia — pisa el override global de 44fr 56fr */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  /* Eyebrow — compacto y elegante */
+  .hero-eyebrow {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Título — editorial, tight, premium */
   .hero-title {
-    font-size: clamp(2rem, 7.5vw, 2.8rem);
-    letter-spacing: -0.01em;
-    line-height: 1.12;
+    font-size: clamp(2.625rem, 11vw, 3.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
   }
-  .hero-subtitle {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
-  }
-  .hero-art-wrap { max-width: 260px; }
 
-  /* CTA hero — ancho completo en mobile */
+  /* Subtítulo — legible, compacto */
+  .hero-subtitle {
+    font-size: clamp(1.125rem, 5vw, 1.5rem);
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Visual decorativo — integrado, no cortado */
+  .hero-art-wrap {
+    max-width: 210px;
+    margin-inline: auto;
+  }
+
+  /* Highlights — separación controlada debajo del texto */
+  .hero-highlights { margin-bottom: 1.5rem; }
+
+  /* CTA hero — ancho completo */
   .hero-content .btn-primary.btn-large {
     display: flex;
     width: 100%;
     justify-content: center;
     text-align: center;
   }
+
   .disclaimer-small {
     text-align: center;
     font-size: 0.74rem;
-    margin-top: 1rem;
+    margin-top: 0.875rem;
   }
 
   /* ── Divider "ELIGE TU EXPERIENCIA" ─────────────────────────────────── */
@@ -2512,13 +2542,18 @@ body { background: var(--verde-noche); }
   .section-header { margin-bottom: 1.75rem; }
 
   /* ── Hero ─────────────────────────────────────────────────────────────── */
-  .hero { padding: 2rem 0 2.5rem; }
+  .hero { padding: 1.25rem 0 2.5rem; }
+  .hero-grid { gap: 1.25rem; }
   .hero-title {
-    font-size: clamp(1.85rem, 8vw, 2.4rem);
-    line-height: 1.13;
+    font-size: clamp(2.625rem, 11vw, 3.5rem);
+    line-height: 0.95;
   }
-  .hero-subtitle { font-size: 0.9rem; }
-  .hero-art-wrap { max-width: 220px; }
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 4.5vw, 1.25rem);
+    line-height: 1.45;
+    max-width: 290px;
+  }
+  .hero-art-wrap { max-width: 190px; }
 
   /* ── Products grid ───────────────────────────────────────────────────── */
   .products-grid {
@@ -2603,9 +2638,11 @@ body { background: var(--verde-noche); }
   .container { padding-inline: 0.875rem; }
 
   /* Hero */
-  .hero-title { font-size: 1.8rem; line-height: 1.13; }
-  .hero-subtitle { font-size: 0.875rem; }
-  .hero-art-wrap { max-width: 200px; }
+  .hero { padding: 1rem 0 2.25rem; }
+  .hero-grid { gap: 1rem; }
+  .hero-title { font-size: 2.625rem; line-height: 0.95; }
+  .hero-subtitle { font-size: 1.05rem; line-height: 1.45; max-width: 270px; }
+  .hero-art-wrap { max-width: 170px; }
 
   /* Divider */
   .exp-divider-text { font-size: 0.6rem; letter-spacing: 0.12em; }
